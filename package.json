@@ -1,5 +1,5 @@
 {
-  "name": "angular2-esnext-todomvc",
+  "name": "automation-dashboard",
   "version": "3.0.0",
   "main": "app/main.js",
   "scripts": {
@@ -9,11 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/blacksonic/angular2-esnext-todomvc.git"
-  },
-  "author": {
-    "name": "blacksonic",
-    "email": "soos.gabor86@gmail.com"
+    "url": "git+https://github.com/austinwillis/automationdashboard.git"
   },
   "license": "ISC",
   "keywords": [
@@ -21,7 +17,7 @@
     "todomvc",
     "es6"
   ],
-  "description": "Angular 2 TodoMVC application in Javascript (ES6/ES7).",
+  "description": "Automation Dashboard",
   "engines": {
     "node": "6.5.0"
   },
