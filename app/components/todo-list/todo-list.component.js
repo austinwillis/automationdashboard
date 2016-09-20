@@ -27,6 +27,6 @@ export class TodoListComponent {
       });
     this.testService.getTests().then(data => {
       this.tests = data.json();
-    }).catch(handleError);
+    });
   }
 }

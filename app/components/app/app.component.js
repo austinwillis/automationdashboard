@@ -7,7 +7,5 @@ import template from './app.template.html';
   template: template
 })
 export class AppComponent {
-  constructor(@Inject('AUTHOR') author) {
-    this.author = author;
-  }
+  constructor() {}
 }
