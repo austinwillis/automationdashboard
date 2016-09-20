@@ -3,9 +3,9 @@ import { Component, Inject } from '@angular/core';
 import template from './app.template.html';
 
 @Component({
-  selector: 'todo-app',
+  selector: 'test-app',
   template: template
 })
-export class AppComponent {
+export class TestComponent {
   constructor() {}
 }

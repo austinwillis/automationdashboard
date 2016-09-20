@@ -5,18 +5,18 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import {
-  AppComponent,
-  TodoListComponent
+  TestComponent,
+  TestListComponent
 } from './components';
 import { TestsService } from './services/tests.service';
 import { TrimPipe } from './pipes';
 import { routes } from './components/todo.routes';
 
 @NgModule({
-  bootstrap: [AppComponent],
+  bootstrap: [TestComponent],
   declarations: [
-    AppComponent,
-    TodoListComponent,
+    TestComponent,
+    TestListComponent,
     TrimPipe
   ],
   imports: [
@@ -28,8 +28,7 @@ import { routes } from './components/todo.routes';
     })
   ],
   providers: [
-    TestsService,
-    { provide: 'AUTHOR', useValue: 'Soós Gábor' }
+    TestsService
   ]
 })
 export class MainModule {}
