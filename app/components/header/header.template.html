@@ -1,8 +1,21 @@
 <md-toolbar color="primary">
-  <span>Suite</span>
+  <span class="header-row">Suite</span>
 
   <!-- This fills the remaining space of the current row -->
-  <span class="example-fill-remaining-space">Test</span>
+  <span class="header-row example-fill-remaining-space">Test</span>
 
-  <span>Result</span>
+  <span class="header-row">Result</span>
+
+  <md-toolbar-row>
+    <input class="header-row search-field" type="text" name="fname" placeholder="Search Suites" />
+    <input class="header-row search-field" type="text" name="lname" placeholder="Search Tests" />
+    <select class="header-row search-field">
+      <option value="pass">Pass</option>
+      <option value="flake">Flake</option>
+      <option value="fail">Fail</option>
+      <option value="bug">Bug</option>
+      <option value="skip">Skip</option>
+    </select>
+  </md-toolbar-row>
+
 </md-toolbar>
