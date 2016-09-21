@@ -1,16 +1,18 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TestsService } from '../../services/tests.service';
+import { MdCardModule } from '@angular2-material/card';
 
 import template from './test-list.template.html';
 
 @Component({
   selector: 'test-list',
-  template: template,
+  template: template, 
   providers: [
     TestsService
   ]
 })
+
 export class TestListComponent {
 
   constructor(route: ActivatedRoute, testService: TestsService) {
@@ -20,6 +22,7 @@ export class TestListComponent {
   }
 
   ngOnInit() {
+    var app = angular.module('app', ['ngMaterial'])
     this._route.params
       .map(params => params.status)
       .subscribe((status) => {

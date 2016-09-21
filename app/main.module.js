@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
+import { MdCardModule } from '@angular2-material/card'
 
 import {
   TestComponent,
@@ -20,6 +21,7 @@ import { routes } from './components/todo.routes';
     TrimPipe
   ],
   imports: [
+    MdCardModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpModule,

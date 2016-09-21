@@ -1,5 +1,7 @@
-<ul>
-  <li *ngFor="let test of tests">
-    {{ test.suite }} {{ test.testname }} {{ test['last-result'] }}
-  </li>
-</ul>
+  <md-card *ngFor="let test of tests">
+    <md-card-title> {{ test.testname }} </md-card-title>
+    <md-card-subtitle> {{ test.suite }} </md-card-subtitle>
+    <md-card-content>
+      <p> {{ test['last-result'] }} </p>
+    </md-card-content>
+  </md-card>
