@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-var object = {};
+var object = [];
 
 var content = fs.readFileSync('tests.txt', 'utf8');
 
@@ -11,11 +11,12 @@ array.forEach(function(item, index) {
   if (test[1] != undefined) {
     var testname = test[1].replace(/(\n|\r)+$/, '')
     var testobject = {}
+    testobject['id'] = index;
     testobject['suite'] = test[0];
     testobject['testname'] = testname;
     testobject['last-result'] = "Pass";
     console.log(index);
-    object[index.toString()] = testobject;
+    object.push(testobject);
   }
 })
 

@@ -1,0 +1,16 @@
+{
+  "name": "node-sheet-report",
+  "version": "1.0.0",
+  "description": "reports automan empire scraper sheet stats to slack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "easy-table": "^1.0.0",
+    "google-auth-library": "^0.9.8",
+    "googleapis": "^13.0.0"
+  }
+}
