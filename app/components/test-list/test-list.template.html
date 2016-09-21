@@ -1,3 +1,5 @@
-<md-card *ngFor="let test of tests">
-  <test-detail [test]="test"></test-detail>
-</md-card>
+<div class="list-content">
+  <md-card class="test-card" *ngFor="let test of tests">
+    <test-detail [test]="test"></test-detail>
+  </md-card>
+</div>
