@@ -7,8 +7,8 @@
   <span class="header-row">Result</span>
 
   <md-toolbar-row>
-    <input class="header-row search-field" type="text" name="fname" placeholder="Search Suites" />
-    <input class="header-row search-field" type="text" name="lname" placeholder="Search Tests" />
+    <input #suite (keyup.enter)="searchSuite(suite.value)" class="header-row search-field" type="text" name="fname" placeholder="Search Suites" />
+    <input #testsearch (keyup.enter)="searchTest(testsearch.value)" class="header-row search-field" type="text" name="lname" placeholder="Search Tests" />
     <select class="header-row search-field">
       <option value="pass">Pass</option>
       <option value="flake">Flake</option>

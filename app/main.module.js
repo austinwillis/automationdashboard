@@ -12,8 +12,8 @@ import {
   TestDetailComponent,
   HeaderComponent
 } from './components';
-import { TestsService } from './services/tests.service';
-import { TrimPipe } from './pipes';
+import { TestsStore } from './services/tests.service';
+import { FilterPipe } from './pipes';
 import { routes } from './components/todo.routes';
 
 @NgModule({
@@ -23,7 +23,7 @@ import { routes } from './components/todo.routes';
     TestListComponent,
     TestDetailComponent,
     HeaderComponent,
-    TrimPipe
+    FilterPipe
   ],
   imports: [
     MdCardModule.forRoot(),
@@ -36,7 +36,7 @@ import { routes } from './components/todo.routes';
     })
   ],
   providers: [
-    TestsService
+    TestsStore
   ]
 })
 export class MainModule {}

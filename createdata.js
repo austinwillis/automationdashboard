@@ -9,7 +9,7 @@ var array = content.split('\n');
 array.forEach(function(item, index) {
   var test = item.split('\t');
   if (test[1] != undefined) {
-    var testname = test[1].split('.')[1].replace(/(\n|\r)+$/, '')
+    var testname = test[1].replace(/(\n|\r)+$/, '')
     var testobject = {}
     testobject['suite'] = test[0];
     testobject['testname'] = testname;

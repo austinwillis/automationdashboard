@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, Output, EventEmitter } from '@angular/core';
 import { MdToolbarModule } from '@angular2-material/toolbar';
 
 import template from './header.template.html';
@@ -9,5 +9,19 @@ import template from './header.template.html';
   inputs: ['test']
 })
 export class HeaderComponent {
-  constructor() {}
+  @Output() suite = new EventEmitter();
+  @Output() testsearch = new EventEmitter();
+
+  ngOnInit() {
+    this.suite.emit('');
+    this.testsearch.emit('');
+  }
+
+  searchSuite(suite) {
+    this.suite.emit(suite);
+  }
+
+  searchTest(test) {
+    this.testsearch.emit(test);
+  }
 }

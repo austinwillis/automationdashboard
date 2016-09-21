@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TestsService } from '../../services/tests.service';
+import { TestsStore } from '../../services/tests.service';
 import { MdCardModule } from '@angular2-material/card';
 import { TestDetailComponent } from '../../components';
 import { HeaderComponent } from '../../components';
@@ -11,7 +11,7 @@ import template from './test-list.template.html';
   selector: 'test-list',
   template: template,
   providers: [
-    TestsService
+    TestsStore
   ],
   directives: [
     TestDetailComponent
@@ -20,10 +20,10 @@ import template from './test-list.template.html';
 
 export class TestListComponent {
 
-  constructor(route: ActivatedRoute, testService: TestsService) {
+  constructor(route: ActivatedRoute, testsStore: TestsStore) {
     this._route = route;
     this._currentStatus = '';
-    this.testService = testService;
+    this.testsStore = testsStore;
   }
 
   ngOnInit() {
@@ -33,8 +33,5 @@ export class TestListComponent {
       .subscribe((status) => {
         this._currentStatus = status;
       });
-    this.testService.getTests().then(data => {
-      this.tests = data.json();
-    });
   }
 }

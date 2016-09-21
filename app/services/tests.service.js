@@ -3,15 +3,13 @@ import { Http } from '@angular/http';
 
 const FIREBASE_URL = 'https://automato-9b898.firebaseio.com/.json';
 
-export class TestsService {
-  constructor(http: Http) {
-    this.http = http;
-  }
+@Injectable()
+export class TestsStore {
 
-  getTests() {
-    return this.http.get(FIREBASE_URL)
-                  .toPromise();
-                  // .then(this.extractData)
-                  // .catch(this.handleError);
+  constructor(http: Http) {
+     http.get(FIREBASE_URL)
+                   .toPromise().then(data => {
+                     this.tests = data.json();
+                   });;
   }
 }
