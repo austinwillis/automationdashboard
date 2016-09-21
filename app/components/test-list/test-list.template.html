@@ -1,6 +1,6 @@
-<test-header (suite)="suite = $event" (testsearch)="testsearch = $event">Header</test-header>
+<test-header (suite)="suite = $event" (result)="result = $event" (testsearch)="testsearch = $event">Header</test-header>
 <div class="list-content">
-  <md-card class="test-card" *ngFor="let test of testsStore.tests | filter:suite:testsearch">
+  <md-card class="test-card" *ngFor="let test of testsStore.tests | filter:suite:testsearch:result">
     <test-detail [test]="test"></test-detail>
   </md-card>
 </div>

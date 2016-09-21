@@ -7,14 +7,15 @@
   <span class="header-row">Result</span>
 
   <md-toolbar-row>
-    <input #suite (keyup.enter)="searchSuite(suite.value)" class="header-row search-field" type="text" name="fname" placeholder="Search Suites" />
-    <input #testsearch (keyup.enter)="searchTest(testsearch.value)" class="header-row search-field" type="text" name="lname" placeholder="Search Tests" />
-    <select class="header-row search-field">
-      <option value="pass">Pass</option>
-      <option value="flake">Flake</option>
-      <option value="fail">Fail</option>
-      <option value="bug">Bug</option>
-      <option value="skip">Skip</option>
+    <input #suite (input)="searchSuite(suite.value)" class="header-row search-field" type="text" name="fname" placeholder="Search Suites" />
+    <input #testsearch (input)="searchTest(testsearch.value)" class="header-row search-field" type="text" name="lname" placeholder="Search Tests" />
+    <select #result (change)="searchResult(result.value)" class="header-row search-field">
+      <option value="">All</option>
+      <option value="Pass">Pass</option>
+      <option value="Flake">Flake</option>
+      <option value="Fail">Fail</option>
+      <option value="Bug">Bug</option>
+      <option value="Skip">Skip</option>
     </select>
   </md-toolbar-row>
 

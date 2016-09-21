@@ -11,10 +11,12 @@ import template from './header.template.html';
 export class HeaderComponent {
   @Output() suite = new EventEmitter();
   @Output() testsearch = new EventEmitter();
+  @Output() result = new EventEmitter();
 
   ngOnInit() {
     this.suite.emit('');
     this.testsearch.emit('');
+    this.result.emit('');
   }
 
   searchSuite(suite) {
@@ -23,5 +25,9 @@ export class HeaderComponent {
 
   searchTest(test) {
     this.testsearch.emit(test);
+  }
+
+  searchResult(result) {
+    this.result.emit(result);
   }
 }
