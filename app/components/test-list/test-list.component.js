@@ -2,14 +2,18 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TestsService } from '../../services/tests.service';
 import { MdCardModule } from '@angular2-material/card';
+import { TestDetailComponent } from '../../components'
 
 import template from './test-list.template.html';
 
 @Component({
   selector: 'test-list',
-  template: template, 
+  template: template,
   providers: [
     TestsService
+  ],
+  directives: [
+    TestDetailComponent
   ]
 })
 
