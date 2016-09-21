@@ -6,11 +6,13 @@
 .list-content {
   width: 100%;
   margin: 15px;
+  layout-align: "center center";
 }
 
 .test-card {
   width: 95%;
   margin: 15px;
+  layout-align: "center center";
 }
 
 .md-headline {
@@ -19,5 +21,13 @@
   *display: inline; /* For IE7 */
   zoom: 1; /* Trigger hasLayout */
   width: 33%;
+  text-align: center;
+}
+
+.example-fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+span {
   text-align: center;
 }

@@ -4,11 +4,13 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { MdCardModule } from '@angular2-material/card';
+import { MdToolbarModule } from '@angular2-material/toolbar';
 
 import {
   TestComponent,
   TestListComponent,
-  TestDetailComponent
+  TestDetailComponent,
+  HeaderComponent
 } from './components';
 import { TestsService } from './services/tests.service';
 import { TrimPipe } from './pipes';
@@ -20,10 +22,12 @@ import { routes } from './components/todo.routes';
     TestComponent,
     TestListComponent,
     TestDetailComponent,
+    HeaderComponent,
     TrimPipe
   ],
   imports: [
     MdCardModule.forRoot(),
+    MdToolbarModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpModule,
