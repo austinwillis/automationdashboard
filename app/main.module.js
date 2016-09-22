@@ -5,8 +5,8 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { MdCardModule } from '@angular2-material/card';
 import { MdToolbarModule } from '@angular2-material/toolbar';
-//import { AuthProviders, FirebaseAuth } from 'angularfire2';
-//import { FirebaseModule } from './firebase';
+import { AuthProviders, FirebaseAuth } from 'angularfire2';
+import { FirebaseModule } from './firebase';
 
 import {
   TestComponent,

@@ -8,10 +8,10 @@ export class AuthService {
   authState: FirebaseAuthState = null;
 
   constructor(auth$: FirebaseAuth) {
-    // this.auth$ = auth$;
-    // auth$.subscribe((state: FirebaseAuthState) => {
-    //   this.authState = state;
-    // });
+    this.auth$ = auth$;
+    auth$.subscribe((state: FirebaseAuthState) => {
+      this.authState = state;
+    });
   }
 
 }
