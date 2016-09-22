@@ -10,11 +10,12 @@ import {
   TestComponent,
   TestListComponent,
   TestDetailComponent,
-  HeaderComponent
+  HeaderComponent,
+  SignInHeaderComponent
 } from './components';
 import { TestsStore } from './services/tests.service';
 import { FilterPipe } from './pipes';
-import { routes } from './components/todo.routes';
+import { routes } from './components/test.routes';
 
 @NgModule({
   bootstrap: [TestComponent],
@@ -23,7 +24,8 @@ import { routes } from './components/todo.routes';
     TestListComponent,
     TestDetailComponent,
     HeaderComponent,
-    FilterPipe
+    FilterPipe,
+    SignInHeaderComponent
   ],
   imports: [
     MdCardModule.forRoot(),
