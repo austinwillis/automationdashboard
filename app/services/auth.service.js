@@ -14,4 +14,25 @@ export class AuthService {
     });
   }
 
+  get authenticated() {
+    return this.authState !== null;
+  }
+
+  get id() {
+    return this.authenticated ? this.authState.uid : '';
+  }
+
+  signIn(provider: number): firebase.Promise {
+    return this.auth$.login({provider})
+      .catch(error => console.log('ERROR @ AuthService#signIn() :', error));
+  }
+
+  signInWithGoogle(): firebase.Promise<FirebaseAuthState> {
+    return this.signIn(AuthProviders.Google);
+  }
+
+  signOut() {
+    this.auth$.logout();
+  }
+
 }
