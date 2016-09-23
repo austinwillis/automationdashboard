@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
-
-const FIREBASE_URL = 'https://automato-9b898.firebaseio.com/.json';
+import { AngularFire } from 'angularfire2';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class TestsStore {
 
-  constructor(http: Http) {
-     http.get(FIREBASE_URL)
-                   .toPromise().then(data => {
-                     this.tests = data.json();
-                   });;
+  tests: FirebaseListObservable;
+
+  constructor(af: AngularFire, auth: AuthService) {
+    this.af = af;
+    this.auth = auth;
+    this.tests = af.database.list(`/`);
   }
 }

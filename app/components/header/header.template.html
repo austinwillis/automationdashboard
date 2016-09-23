@@ -5,10 +5,11 @@
   <span class="header-row example-fill-remaining-space">Test</span>
 
   <span class="header-row">Result</span>
+  <div (click)="signOut()" class="logout">Logout</div>
 
   <md-toolbar-row>
-    <input #suite (input)="searchSuite(suite.value)" class="header-row search-field" type="text" name="fname" placeholder="Search Suites" />
-    <input #testsearch (input)="searchTest(testsearch.value)" class="header-row search-field" type="text" name="lname" placeholder="Search Tests" />
+    <input (input)="suiteSearch.next($event.target.value)" class="header-row search-field" type="text" name="fname" placeholder="Search Suites" />
+    <input (input)="testSearch.next($event.target.value)" class="header-row search-field" type="text" name="lname" placeholder="Search Tests" />
     <select #result (change)="searchResult(result.value)" class="header-row search-field">
       <option value="">All</option>
       <option value="Pass">Pass</option>

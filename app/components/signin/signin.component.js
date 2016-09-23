@@ -23,8 +23,4 @@ export class SignInComponent {
     this.router.navigate(['/tests']);
   }
 
-  signOut() {
-    this.auth.signOut();
-  }
-
 }

@@ -7,6 +7,7 @@ import { MdCardModule } from '@angular2-material/card';
 import { MdToolbarModule } from '@angular2-material/toolbar';
 import { AuthProviders, FirebaseAuth } from 'angularfire2';
 import { FirebaseModule } from './firebase';
+import { AngularFire } from 'angularfire2';
 
 import {
   TestComponent,
@@ -50,7 +51,8 @@ import { routes } from './components/test.routes';
     TestsStore,
     AuthGuard,
     AuthService,
-    FirebaseAuth
+    FirebaseAuth,
+    AngularFire
   ]
 })
 export class MainModule {}
