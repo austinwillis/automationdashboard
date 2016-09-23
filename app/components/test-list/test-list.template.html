@@ -1,6 +1,30 @@
-<test-header (suite)="suite = $event" (result)="result = $event" (testsearch)="testsearch = $event">Header</test-header>
+<div class="row list-controls">
+  <div class="col-md-4">
+    <div class="input-group">
+      <input (input)="suiteSubject.next($event.target.value)" class="search-field form-control" type="text" name="fname" placeholder="Search Suites" />
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="input-group">
+      <input (input)="testSubject.next($event.target.value)" class="search-field form-control" type="text" name="lname" placeholder="Search Tests" />
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="input-group">
+      <select #result (change)="this.resultFilter = result.value" class="search-field form-control">
+        <option value="">All</option>
+        <option value="Pass">Pass</option>
+        <option value="Flake">Flake</option>
+        <option value="Fail">Fail</option>
+        <option value="Bug">Bug</option>
+        <option value="Skip">Skip</option>
+      </select>
+    </div>
+  </div>
+</div>
+
 <div class="list-content">
-  <md-card class="test-card" *ngFor="let test of testsStore.tests | async | filter :suite:testsearch:result">
+  <div class="test-card row" *ngFor="let test of testsStore.tests | async | filter:suiteFilter:testFilter:resultFilter">
     <test-detail [test]="test"></test-detail>
-  </md-card>
+  </div>
 </div>

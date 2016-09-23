@@ -1,23 +1,13 @@
-<md-toolbar color="primary">
-  <span class="header-row">Suite</span>
-
-  <!-- This fills the remaining space of the current row -->
-  <span class="header-row example-fill-remaining-space">Test</span>
-
-  <span class="header-row">Result</span>
-  <div (click)="signOut()" class="logout">Logout</div>
-
-  <md-toolbar-row>
-    <input (input)="suiteSearch.next($event.target.value)" class="header-row search-field" type="text" name="fname" placeholder="Search Suites" />
-    <input (input)="testSearch.next($event.target.value)" class="header-row search-field" type="text" name="lname" placeholder="Search Tests" />
-    <select #result (change)="searchResult(result.value)" class="header-row search-field">
-      <option value="">All</option>
-      <option value="Pass">Pass</option>
-      <option value="Flake">Flake</option>
-      <option value="Fail">Fail</option>
-      <option value="Bug">Bug</option>
-      <option value="Skip">Skip</option>
-    </select>
-  </md-toolbar-row>
-
-</md-toolbar>
+<nav class="navbar navbar-dark bg-primary">
+  <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2" aria-controls="exCollapsingNavbar2" aria-expanded="false" aria-label="Toggle navigation">
+    &#9776;
+  </button>
+  <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
+    <a class="navbar-brand" href="#">Automan Test Run Manager</a>
+    <ul class="nav navbar-nav pull-md-right">
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:void(0);" (click)="signOut()">Sign Out</a>
+      </li>
+    </ul>
+  </div>
+</nav>

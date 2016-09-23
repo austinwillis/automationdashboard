@@ -1,5 +1,7 @@
-<md-card-content>
-  <div class="md-headline">{{ test.suite }}</div>
-  <div class="md-headline">{{ test.testname }}</div>
-  <div class="md-headline">{{ test['last-result'] }}</div>
-</md-card-content>
+<div class="card card-inverse offset-md-1 col-md-10" [ngClass]="classMap">
+  <div class="card-block row">
+    <div class="col-md-2">{{ test.suite }}</div>
+    <div class="col-md-8">{{ test.testname }}</div>
+    <div class="col-md-2">{{ test['last-result'] }}</div>
+  </div>
+</div>
