@@ -3,8 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { MdCardModule } from '@angular2-material/card';
-import { MdToolbarModule } from '@angular2-material/toolbar';
 import { AuthProviders, FirebaseAuth } from 'angularfire2';
 import { FirebaseModule } from './firebase';
 import { AngularFire } from 'angularfire2';
@@ -37,8 +35,6 @@ import { routes } from './components/test.routes';
     SignInComponent
   ],
   imports: [
-    MdCardModule.forRoot(),
-    MdToolbarModule.forRoot(),
     BrowserModule,
     FormsModule,
     FirebaseModule,
