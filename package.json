@@ -11,6 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/austinwillis/automationdashboard.git"
   },
+  "jshintConfig": {
+    "esnext": true
+  },
   "license": "ISC",
   "keywords": [
     "angular2",

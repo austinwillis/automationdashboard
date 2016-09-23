@@ -4,6 +4,7 @@ import { TestsStore } from '../../services/tests.service';
 import { MdCardModule } from '@angular2-material/card';
 import { TestDetailComponent } from '../../components';
 import { HeaderComponent } from '../../components';
+import { FirebaseListObservable } from 'angularfire2';
 
 import template from './test-list.template.html';
 
