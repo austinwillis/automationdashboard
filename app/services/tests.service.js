@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFire } from 'angularfire2';
 import { AuthService } from './auth.service';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class TestsStore {
@@ -10,6 +11,10 @@ export class TestsStore {
   constructor(af: AngularFire, auth: AuthService) {
     this.af = af;
     this.auth = auth;
-    this.tests = af.database.list(`/`);
+    this.isLoading = true;
+    af.database.list(`/`).subscribe(data => {
+      this.tests = data;
+      this.isLoading = false;
+    });
   }
 }
