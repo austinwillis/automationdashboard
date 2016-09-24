@@ -27,7 +27,7 @@
   <div class="col-md-2 offset-md-5 loader"></div>
 </div>
 <div *ngIf="!testsStore.isLoading" class="list-content">
-  <div class="test-card row" *ngFor="let test of testsStore.tests | filter:suiteFilter:testFilter:resultFilter">
+  <div class="test-card row" *ngFor="let test of testsStore.tests | async | filter:suiteFilter:testFilter:resultFilter">
     <test-detail [test]="test"></test-detail>
   </div>
 </div>

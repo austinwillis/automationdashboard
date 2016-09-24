@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { NgClass } from '@angular/common';
+import { TestsStore } from '../../services/tests.service';
 
 import template from './testdetail.template.html';
 
@@ -10,7 +11,9 @@ import template from './testdetail.template.html';
   directives: [NgClass]
 })
 export class TestDetailComponent {
-  constructor() {}
+  constructor(testsStore: TestsStore) {
+    this.testsStore = testsStore;
+  }
 
   ngOnInit() {
     this.classMap = this.findClassMapByResult(this.test['last-result']);
@@ -35,5 +38,9 @@ export class TestDetailComponent {
       case 'Bug':
         return Object.assign(classMap, { 'card-warning': true });
     }
+  }
+
+  updateResult(result) {
+    this.testsStore.updateResult(this.test, result);
   }
 }
