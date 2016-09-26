@@ -18,7 +18,8 @@ export class TestDetailComponent {
   }
 
   ngOnInit() {
-    this.classMap = this.findClassMapByResult(this.test['lastResult']);
+    this.lastResultValue = this.test.lastResult[Object.keys(this.test.lastResult)[0]];
+    this.classMap = this.findClassMapByResult(this.lastResultValue);
   }
 
   findClassMapByResult(result) {
@@ -43,6 +44,6 @@ export class TestDetailComponent {
   }
 
   updateResult(result) {
-    this.testsStore.updateResult(this.test, result);
+    this.testsStore.updateResult(this.test, Object.keys(this.test.lastResult)[0], result);
   }
 }

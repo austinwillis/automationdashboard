@@ -1,6 +1,10 @@
 var fs = require('fs');
 
 var object = {};
+var results = {};
+var suites = {}
+
+var date = (new Date).getTime();
 
 var content = fs.readFileSync('tests.txt', 'utf8');
 
@@ -10,8 +14,13 @@ array.forEach(function(item, index) {
   var test = item.split('\t');
   if (test[1] != undefined) {
     var testname = test[1].replace(/(\n|\r)+$/, '').replace('.', '_');
-    object[testname] = { 'suite': test[0], 'lastResult': "Pass"}
+    var resultsObject = {};
+    resultsObject[date] = "Pass";
+    suites[testname] = { 'suite': test[0], 'lastResult': resultsObject };
+    results[testname] = resultsObject;
   }
 })
 
+object['results'] = results;
+object['tests'] = suites;
 fs.writeFileSync('./data.json', JSON.stringify(object));

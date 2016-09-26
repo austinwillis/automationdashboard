@@ -17,12 +17,8 @@ export class TestsStore {
     });
   }
 
-  updateResult(test, result) {
-    this.af.database.list('/tests').update(test, { 'lastResult': result });
-    this.af.database.list(`/results/${test['$key']}`).then(results => {
-      console.log(results);
-      let key = results['0']['$key'];
-      this.af.database.object(`/results/${test['$key']}/${key}`).set(result);
-    });
+  updateResult(test, date, result) {
+    this.af.database.object(`/tests/${test['$key']}/lastResult/${date}`).set(result)
+    this.af.database.object(`/results/${test['$key']}/${date}`).set(result);
   }
 }
