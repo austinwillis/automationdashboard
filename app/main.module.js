@@ -6,13 +6,15 @@ import { NgModule } from '@angular/core';
 import { AuthProviders, FirebaseAuth } from 'angularfire2';
 import { FirebaseModule } from './firebase';
 import { AngularFire } from 'angularfire2';
+import { DataScrollerModule } from 'primeng/primeng';
 
 import {
   TestComponent,
   TestListComponent,
   TestDetailComponent,
   HeaderComponent,
-  SignInComponent
+  SignInComponent,
+  ResultsComponent
 } from './components';
 
 import {
@@ -32,13 +34,15 @@ import { routes } from './components/test.routes';
     TestDetailComponent,
     HeaderComponent,
     FilterPipe,
-    SignInComponent
+    SignInComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     FirebaseModule,
     HttpModule,
+    DataScrollerModule,
     RouterModule.forRoot(routes, {
       useHash: true
     })

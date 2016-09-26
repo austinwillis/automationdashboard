@@ -1,15 +1,29 @@
-<div class="card card-inverse" [ngClass]="classMap">
-  <div class="card-block">
+<div class="card-inverse" [ngClass]="classMap">
     <div class="col-md-3">{{ test['suite'] }}</div>
-    <div class="col-md-9">{{ test['$key'] }}</div>
-    <div class="input-group col-md-2">
-      <select #result (change)="this.updateResult(result.value)" class="search-field form-control">
-        <option [selected]="lastResultValue === 'Pass'" value="Pass">Pass</option>
-        <option [selected]="lastResultValue === 'Flake'" value="Flake">Flake</option>
-        <option [selected]="lastResultValue === 'Fail'" value="Fail">Fail</option>
-        <option [selected]="lastResultValue === 'Bug'" value="Bug">Bug</option>
-        <option [selected]="lastResultValue === 'Skip'" value="Skip">Skip</option>
-      </select>
+    <div class="col-md-5">{{ test['$key'] }}</div>
+    <div class="col-md-2">
+      <div class="input-group">
+        <select #status (change)="this.updateStatus(status.value)" class="search-field form-control">
+          <option [selected]="test.status === 'Consistent'" value="Consistent">Consistent</option>
+          <option [selected]="test.status === 'Quarantine'" value="Quarantine">Quarantine</option>
+        </select>
+      </div>
     </div>
-  </div>
+    <div class="col-md-1">
+      <div class="input-group">
+        <select #result (change)="this.updateResult(result.value)" class="search-field form-control">
+          <option [selected]="lastResultValue === 'Pass'" value="Pass">Pass</option>
+          <option [selected]="lastResultValue === 'Flake'" value="Flake">Flake</option>
+          <option [selected]="lastResultValue === 'Fail'" value="Fail">Fail</option>
+          <option [selected]="lastResultValue === 'Bug'" value="Bug">Bug</option>
+          <option [selected]="lastResultValue === 'Skip'" value="Skip">Skip</option>
+        </select>
+      </div>
+    </div>
+  <button (click)="this.toggleResults()" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+    Show Results
+  </button>
+</div>
+<div *ngIf="showResults" class="col-md-1">
+    <test-results [testname]="this.testname"></test-results>
 </div>

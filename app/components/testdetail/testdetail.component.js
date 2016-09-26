@@ -1,5 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { NgClass } from '@angular/common';
+
+import { ResultsComponent } from '../../components';
 import { TestsStore } from '../../services/tests.service';
 
 import template from './testdetail.template.html';
@@ -8,18 +10,24 @@ import template from './testdetail.template.html';
   selector: 'test-detail',
   template: template,
   inputs: ['test'],
-  directives: [NgClass]
+  directives: [NgClass, ResultsComponent]
 })
 export class TestDetailComponent {
   latestResult = '';
+  showResults = false;
 
   constructor(testsStore: TestsStore) {
     this.testsStore = testsStore;
   }
 
+  toggleResults() {
+    this.showResults = !this.showResults;
+  }
+
   ngOnInit() {
     this.lastResultValue = this.test.lastResult[Object.keys(this.test.lastResult)[0]];
     this.classMap = this.findClassMapByResult(this.lastResultValue);
+    this.testname = this.test.$key;
   }
 
   findClassMapByResult(result) {
@@ -45,5 +53,9 @@ export class TestDetailComponent {
 
   updateResult(result) {
     this.testsStore.updateResult(this.test, Object.keys(this.test.lastResult)[0], result);
+  }
+
+  updateStatus(status) {
+    this.testsStore.updateStatus(this.test, status);
   }
 }

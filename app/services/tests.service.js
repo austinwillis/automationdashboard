@@ -21,4 +21,14 @@ export class TestsStore {
     this.af.database.object(`/tests/${test['$key']}/lastResult/${date}`).set(result)
     this.af.database.object(`/results/${test['$key']}/${date}`).set(result);
   }
+
+  updateStatus(test, status) {
+    console.log(test);
+    console.log(status);
+    this.af.database.object(`/tests/${test['$key']}/status`).set(status);
+  }
+
+  getResults(testname) {
+    return this.af.database.list(`/results/${testname}`);
+  }
 }

@@ -1,0 +1,17 @@
+<div *ngIf="this.isLoading" class="row">
+  <div class="col-md-2 offset-md-5 loader"></div>
+</div>
+<table *ngIf="!this.isLoading" class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let result of results">
+      <td>{{ result.$key | date }}</td>
+      <td>{{ result.$value }}</td>
+    </tr>
+  </tbody>
+</table>

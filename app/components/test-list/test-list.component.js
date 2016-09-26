@@ -33,6 +33,7 @@ export class TestListComponent {
     this.suiteFilter = '';
     this.testFilter = '';
     this.resultFilter = '';
+    this.statusFilter = 'Consistent';
 
     this.suiteSubject
       .debounceTime(400)

@@ -1,15 +1,24 @@
 <div class="row list-controls">
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="input-group">
       <input (input)="suiteSubject.next($event.target.value)" class="search-field form-control" type="text" name="fname" placeholder="Search Suites" />
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="input-group">
       <input (input)="testSubject.next($event.target.value)" class="search-field form-control" type="text" name="lname" placeholder="Search Tests" />
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
+    <div class="input-group">
+      <select #status (change)="this.statusFilter = status.value" class="search-field form-control">
+        <option [selected]="this.statusFilter === ''" value="">All</option>
+        <option [selected]="this.statusFilter === 'Consistent'" value="Consistent">Consistent</option>
+        <option [selected]="this.statusFilter === 'Quarantine'" value="Quarantine">Quarantine</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-2">
     <div class="input-group">
       <select #result (change)="this.resultFilter = result.value" class="search-field form-control">
         <option value="">All</option>
@@ -27,7 +36,7 @@
   <div class="col-md-2 offset-md-5 loader"></div>
 </div>
 <div *ngIf="!testsStore.isLoading" class="list-content">
-  <div class="test-card row" *ngFor="let test of testsStore.tests | filter:suiteFilter:testFilter:resultFilter">
+  <div class="test-card row" *ngFor="let test of testsStore.tests | filter:suiteFilter:testFilter:resultFilter:statusFilter">
     <test-detail [test]="test"></test-detail>
   </div>
 </div>
