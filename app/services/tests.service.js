@@ -7,14 +7,17 @@ export class TestsStore {
 
   isLoading = true;
   tests: FirebaseListObservable;
+  instance: TestsStore;
 
   constructor(af: AngularFire, auth: AuthService) {
+    if (TestsStore.instance) return TestsStore.instance;
     this.af = af;
     this.auth = auth;
     af.database.list('/tests').subscribe(tests => {
       this.tests = tests;
       this.isLoading = false;
     });
+    this.instance = this;
   }
 
   updateResult(test, date, result) {
@@ -30,5 +33,9 @@ export class TestsStore {
 
   getResults(testname) {
     return this.af.database.list(`/results/${testname}`);
+  }
+
+  getAllResults() {
+    return this.af.database.list('/results');
   }
 }

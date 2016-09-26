@@ -7,6 +7,7 @@ import { AuthProviders, FirebaseAuth } from 'angularfire2';
 import { FirebaseModule } from './firebase';
 import { AngularFire } from 'angularfire2';
 import { DataScrollerModule } from 'primeng/primeng';
+import { enableProdMode } from '@angular/core';
 
 import {
   TestComponent,
@@ -14,7 +15,8 @@ import {
   TestDetailComponent,
   HeaderComponent,
   SignInComponent,
-  ResultsComponent
+  ResultsComponent,
+  SummaryComponent
 } from './components';
 
 import {
@@ -35,7 +37,8 @@ import { routes } from './components/test.routes';
     HeaderComponent,
     FilterPipe,
     SignInComponent,
-    ResultsComponent
+    ResultsComponent,
+    SummaryComponent
   ],
   imports: [
     BrowserModule,

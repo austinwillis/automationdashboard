@@ -13,9 +13,6 @@ import template from './test-list.template.html';
 @Component({
   selector: 'test-list',
   template: template,
-  providers: [
-    TestsStore
-  ],
   directives: [
     TestDetailComponent
   ]
