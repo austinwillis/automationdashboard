@@ -11,12 +11,14 @@ import template from './testdetail.template.html';
   directives: [NgClass]
 })
 export class TestDetailComponent {
+  latestResult = '';
+
   constructor(testsStore: TestsStore) {
     this.testsStore = testsStore;
   }
 
   ngOnInit() {
-    this.classMap = this.findClassMapByResult(this.test['last-result']);
+    this.classMap = this.findClassMapByResult(this.test['lastResult']);
   }
 
   findClassMapByResult(result) {

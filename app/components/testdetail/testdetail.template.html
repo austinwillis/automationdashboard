@@ -1,15 +1,15 @@
 <div class="card card-inverse offset-md-1 col-md-10" [ngClass]="classMap">
   <div class="card-block row">
     <div class="col-md-2">{{ test['suite'] }}</div>
-    <div class="col-md-8">{{ test['testname'] }}</div>
-    <div class="col-md-2">
-      <div class="input-group">
-        <select #result (change)="this.updateResult(result.value)" class="search-field form-control">
-          <option [selected]="test['last-result'] === 'Pass'" value="Pass">Pass</option>
-          <option [selected]="test['last-result'] === 'Flake'" value="Flake">Flake</option>
-          <option [selected]="test['last-result'] === 'Fail'" value="Fail">Fail</option>
-          <option [selected]="test['last-result'] === 'Bug'" value="Bug">Bug</option>
-          <option [selected]="test['last-result'] === 'Skip'" value="Skip">Skip</option>
-        </select></div>
+    <div class="col-md-8">{{ test['$key'] }}</div>
+    <div class="input-group col-md-2">
+      <select #result (change)="this.updateResult(result.value)" class="search-field form-control">
+        <option [selected]="test['lastResult'] === 'Pass'" value="Pass">Pass</option>
+        <option [selected]="test['lastResult'] === 'Flake'" value="Flake">Flake</option>
+        <option [selected]="test['lastResult'] === 'Fail'" value="Fail">Fail</option>
+        <option [selected]="test['lastResult'] === 'Bug'" value="Bug">Bug</option>
+        <option [selected]="test['lastResult'] === 'Skip'" value="Skip">Skip</option>
+      </select>
+    </div>
   </div>
 </div>

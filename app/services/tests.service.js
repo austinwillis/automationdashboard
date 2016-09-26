@@ -11,14 +11,18 @@ export class TestsStore {
   constructor(af: AngularFire, auth: AuthService) {
     this.af = af;
     this.auth = auth;
-    this.tests = af.database.list(`/`)
-    this.tests.subscribe(() => {
+    af.database.list('/tests').subscribe(tests => {
+      this.tests = tests;
       this.isLoading = false;
     });
   }
 
   updateResult(test, result) {
-    test['last-result'] = result;
-    this.tests.update(test.$key, { 'testname': test.testname, 'suite': test.suite, 'last-result' : result });
+    this.af.database.list('/tests').update(test, { 'lastResult': result });
+    this.af.database.list(`/results/${test['$key']}`).then(results => {
+      console.log(results);
+      let key = results['0']['$key'];
+      this.af.database.object(`/results/${test['$key']}/${key}`).set(result);
+    });
   }
 }

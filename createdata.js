@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-var object = [];
+var object = {};
 
 var content = fs.readFileSync('tests.txt', 'utf8');
 
@@ -9,14 +9,8 @@ var array = content.split('\n');
 array.forEach(function(item, index) {
   var test = item.split('\t');
   if (test[1] != undefined) {
-    var testname = test[1].replace(/(\n|\r)+$/, '')
-    var testobject = {}
-    testobject['id'] = index;
-    testobject['suite'] = test[0];
-    testobject['testname'] = testname;
-    testobject['last-result'] = "Pass";
-    console.log(index);
-    object.push(testobject);
+    var testname = test[1].replace(/(\n|\r)+$/, '').replace('.', '_');
+    object[testname] = { 'suite': test[0], 'lastResult': "Pass"}
   }
 })
 
