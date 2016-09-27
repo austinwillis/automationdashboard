@@ -22,7 +22,6 @@ import {
 import {
   AuthGuard
 } from './guards';
-
 import { TestsStore } from './services/tests.service';
 import { AuthService } from './services/auth.service';
 import { FilterPipe } from './pipes';

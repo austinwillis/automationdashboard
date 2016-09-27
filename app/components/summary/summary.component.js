@@ -22,15 +22,28 @@ export class SummaryComponent {
   }
 
   ngOnInit() {
-    this.createStats();
+    if (!this.testsStore.loadedResults) {
+      this.testsStore.loadingResults.subscribe(results => {
+        this.createStats();
+      });
+    } else {
+      this.createStats();
+    }
   }
 
   findMostRecentRun(test) {
-    
+    return Object.keys(test).reduce(function(max, current) {
+      return Math.max(max, isNaN(test[current].date) ? 0 : test[current].date );
+    }, 0);
   }
 
   createStatsByStatus(status) {
-
+    return this.testsStore.results.filter(test => {
+      var mostRecent = this.findMostRecentRun(test);
+      return !!Object.keys(test).filter(key => {
+        return test[key].date === mostRecent && test[key].result === status;
+      }).length;
+    }).length;
   }
 
   createStats() {

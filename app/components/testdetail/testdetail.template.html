@@ -1,4 +1,4 @@
-<div [ngClass]="classMap">
+<div [class.selected]="isSelected" (click)="selectElement($event)" [ngClass]="classMap">
   <div class="row">
     <div class="col-md-3">{{ test['suite'] }}</div>
     <div class="col-md-5">{{ test['$key'] }}</div>

@@ -15,9 +15,17 @@ import template from './testdetail.template.html';
 export class TestDetailComponent {
   latestResult = '';
   showResults = false;
+  isSelected = false;
 
   constructor(testsStore: TestsStore) {
     this.testsStore = testsStore;
+  }
+
+  selectElement(event) {
+    if (event.ctrlKey) {
+      console.log(this.isSelected);
+      this.isSelected = !this.isSelected;
+    }
   }
 
   toggleResults() {

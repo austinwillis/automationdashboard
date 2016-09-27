@@ -30,7 +30,7 @@ export class TestListComponent {
 
     this.suiteFilter = '';
     this.testFilter = '';
-    this.resultFilter = '';
+    this.resultFilter = 'FAIL';
     this.statusFilter = 'Consistent';
 
     this.suiteSubject

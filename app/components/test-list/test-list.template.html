@@ -21,12 +21,12 @@
   <div class="col-md-3">
     <div class="input-group">
       <select #result (change)="this.resultFilter = result.value" class="search-field form-control">
-        <option value="">All</option>
-        <option value="PASS">Pass</option>
-        <option value="FLAKE">Flake</option>
-        <option value="FAIL">Fail</option>
-        <option value="BUG">Bug</option>
-        <option value="SKIP">Skip</option>
+        <option [selected]="this.resultFilter === ''" value="">All</option>
+        <option [selected]="this.resultFilter === 'PASS'" value="PASS">Pass</option>
+        <option [selected]="this.resultFilter === 'FLAKE'" value="FLAKE">Flake</option>
+        <option [selected]="this.resultFilter === 'FAIL'" value="FAIL">Fail</option>
+        <option [selected]="this.resultFilter === 'BUG'" value="BUG">Bug</option>
+        <option [selected]="this.resultFilter === 'SKIP'" value="SKIP">Skip</option>
       </select>
     </div>
   </div>
@@ -36,7 +36,7 @@
   <div class="col-md-2 offset-md-5 loader"></div>
 </div>
 <div *ngIf="!testsStore.isLoading" class="list-content" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
-  <div *ngFor="let test of filteredTests">
+  <div *ngFor="let test of testsStore.tests | filter:suiteFilter:testFilter:resultFilter:statusFilter">
     <test-detail [test]="test"></test-detail>
   </div>
 </div>

@@ -8,6 +8,8 @@ import { Subject } from 'rxjs/Rx';
 export class TestsStore {
 
   isLoading = true;
+  loadedResults = false;
+  loadingResults = new Subject();
 
   constructor(af: AngularFire, auth: AuthService) {
     this.af = af;
@@ -17,9 +19,15 @@ export class TestsStore {
       this.tests = tests;
       this.isLoading = false;
     });
-    af.database.list('/results').subscribe(results => {
+    this.af.database.list('/results').subscribe(results => {
       this.results = results;
-    })
+      this.loadedResults = true;
+      this.loadingResults.next();
+    });
+  }
+
+  getAllResults() {
+    return this.results;
   }
 
   updateResult(test, date, result) {
@@ -30,10 +38,8 @@ export class TestsStore {
         equalTo:  date
       }
     }).subscribe(results => {
-      console.log(results);
       if (results['0'] !== undefined) {
         var key = results['0'].$key;
-        console.log(key);
         this.af.database.object(`/results/${test['$key']}/${key}/result`).set(result);
       }
     })
