@@ -9,13 +9,11 @@ export class TestsStore {
   instance: TestsStore;
 
   constructor(af: AngularFire, auth: AuthService) {
-    console.log('construct service');
     this.af = af;
     this.auth = auth;
     af.database.list('/tests').subscribe(tests => {
       this.tests = tests;
       this.isLoading = false;
-      this.visisbleTests = this.tests.slice(0, this.numberVisible);
     });
     af.database.list('/results').subscribe(results => {
       this.results = results
@@ -23,17 +21,31 @@ export class TestsStore {
   }
 
   updateResult(test, date, result) {
-    this.af.database.object(`/tests/${test['$key']}/lastResult/${date}`).set(result)
-    this.af.database.object(`/results/${test['$key']}/${date}`).set(result);
+    this.af.database.object(`/tests/${test['$key']}/lastResult/result`).set(result)
+    this.af.database.list(`/results/${test['$key']}/`, {
+      query: {
+        orderByChild: 'date',
+        equalTo:  date
+      }
+    }).subscribe(results => {
+      console.log(results);
+      if (results['0'] !== undefined) {
+        var key = results['0'].$key;
+        console.log(key);
+        this.af.database.object(`/results/${test['$key']}/${key}/result`).set(result);
+      }
+    })
   }
 
   updateStatus(test, status) {
-    console.log(test);
-    console.log(status);
     this.af.database.object(`/tests/${test['$key']}/status`).set(status);
   }
 
   getResults(testname) {
-    return this.af.database.list(`/results/${testname}`);
+    return this.af.database.list(`/results/${testname}`, {
+      query: {
+        orderByValue: 'date'
+      }
+    });
   }
 }

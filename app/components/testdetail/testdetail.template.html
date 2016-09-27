@@ -13,11 +13,11 @@
     <div class="col-md-1">
       <div class="input-group">
         <select #result (change)="this.updateResult(result.value)" class="search-field form-control">
-          <option [selected]="lastResultValue === 'Pass'" value="Pass">Pass</option>
-          <option [selected]="lastResultValue === 'Flake'" value="Flake">Flake</option>
-          <option [selected]="lastResultValue === 'Fail'" value="Fail">Fail</option>
-          <option [selected]="lastResultValue === 'Bug'" value="Bug">Bug</option>
-          <option [selected]="lastResultValue === 'Skip'" value="Skip">Skip</option>
+          <option [selected]="this.test.lastResult.result === 'PASS'" value="PASS">Pass</option>
+          <option [selected]="this.test.lastResult.result === 'FLAKE'" value="FLAKE">Flake</option>
+          <option [selected]="this.test.lastResult.result === 'FAIL'" value="FAIL">Fail</option>
+          <option [selected]="this.test.lastResult.result === 'BUG'" value="BUG">Bug</option>
+          <option [selected]="this.test.lastResult.result === 'SKIP'" value="SKIP">Skip</option>
         </select>
       </div>
     </div>

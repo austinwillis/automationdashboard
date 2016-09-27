@@ -40,10 +40,10 @@ export class SummaryComponent {
 
   createStats() {
     this.totalTests = this.testsStore.results.length;
-    this.pass = this.createStatsByStatus('Pass');
-    this.fail = this.createStatsByStatus('Fail');
-    this.flake = this.createStatsByStatus('Flake');
-    this.skip = this.createStatsByStatus('Skip');
-    this.bug = this.createStatsByStatus('Bug');
+    this.pass = this.createStatsByStatus('PASS');
+    this.fail = this.createStatsByStatus('FAIL');
+    this.flake = this.createStatsByStatus('FLAKE');
+    this.skip = this.createStatsByStatus('SKIP');
+    this.bug = this.createStatsByStatus('BUG');
   }
 }

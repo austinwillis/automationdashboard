@@ -25,8 +25,7 @@ export class TestDetailComponent {
   }
 
   ngOnInit() {
-    this.lastResultValue = this.test.lastResult[Object.keys(this.test.lastResult)[0]];
-    this.classMap = this.findClassMapByResult(this.lastResultValue);
+    this.classMap = this.findClassMapByResult(this.test.lastResult.result);
     this.testname = this.test.$key;
   }
 
@@ -39,21 +38,21 @@ export class TestDetailComponent {
     };
 
     switch(result) {
-      case 'Pass':
+      case 'PASS':
         return Object.assign(classMap, { 'bs-callout bs-callout-success': true });
-      case 'Fail':
+      case 'FAIL':
         return Object.assign(classMap, { 'bs-callout bs-callout-danger': true });
-      case 'Skip':
+      case 'SKIP':
         return Object.assign(classMap, { 'bs-callout bs-callout-warning': true });
-      case 'Flake':
+      case 'FLAKE':
         return Object.assign(classMap, { 'bs-callout bs-callout-info': true });
-      case 'Bug':
+      case 'BUG':
         return Object.assign(classMap, { 'bs-callout bs-callout-default': true });
     }
   }
 
   updateResult(result) {
-    this.testsStore.updateResult(this.test, Object.keys(this.test.lastResult)[0], result);
+    this.testsStore.updateResult(this.test, this.test.lastResult.date, result);
   }
 
   updateStatus(status) {

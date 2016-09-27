@@ -10,8 +10,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let result of results">
-      <td>{{ result.$key | date }}</td>
-      <td>{{ result.$value }}</td>
+      <td>{{ result.date | date }}</td>
+      <td>{{ result.result }}</td>
     </tr>
   </tbody>
 </table>
