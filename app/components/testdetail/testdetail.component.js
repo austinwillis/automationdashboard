@@ -40,14 +40,15 @@ export class TestDetailComponent {
 
     switch(result) {
       case 'Pass':
-        return Object.assign(classMap, { 'card-success': true });
+        return Object.assign(classMap, { 'bs-callout bs-callout-success': true });
       case 'Fail':
+        return Object.assign(classMap, { 'bs-callout bs-callout-danger': true });
       case 'Skip':
-        return Object.assign(classMap, { 'card-danger': true });
+        return Object.assign(classMap, { 'bs-callout bs-callout-warning': true });
       case 'Flake':
-        return Object.assign(classMap, { 'card-info': true });
+        return Object.assign(classMap, { 'bs-callout bs-callout-info': true });
       case 'Bug':
-        return Object.assign(classMap, { 'card-warning': true });
+        return Object.assign(classMap, { 'bs-callout bs-callout-default': true });
     }
   }
 
