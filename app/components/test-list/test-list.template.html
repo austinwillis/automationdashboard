@@ -36,7 +36,7 @@
   <div class="col-md-2 offset-md-5 loader"></div>
 </div>
 <div *ngIf="!testsStore.isLoading" class="list-content" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
-  <div *ngFor="let test of testsStore.tests | filter:suiteFilter:testFilter:resultFilter:statusFilter">
+  <div *ngFor="let test of filteredTests">
     <test-detail [test]="test"></test-detail>
   </div>
 </div>

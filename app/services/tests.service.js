@@ -1,22 +1,24 @@
 import { Injectable } from '@angular/core';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AuthService } from './auth.service';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Rx';
 
 @Injectable()
 export class TestsStore {
 
   isLoading = true;
-  instance: TestsStore;
 
   constructor(af: AngularFire, auth: AuthService) {
     this.af = af;
     this.auth = auth;
+    var self = this;
     af.database.list('/tests').subscribe(tests => {
       this.tests = tests;
       this.isLoading = false;
     });
     af.database.list('/results').subscribe(results => {
-      this.results = results
+      this.results = results;
     })
   }
 

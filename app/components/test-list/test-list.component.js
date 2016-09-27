@@ -21,6 +21,7 @@ import template from './test-list.template.html';
 export class TestListComponent {
   suiteSubject = new Subject();
   testSubject = new Subject();
+  filteredTests: Array = [];
 
   constructor(route: ActivatedRoute, testsStore: TestsStore) {
     this.testsStore = testsStore;
