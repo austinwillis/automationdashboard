@@ -26,16 +26,11 @@ export class SummaryComponent {
   }
 
   findMostRecentRun(test) {
-    return Math.max(Object.keys(test).filter(function(run) {
-      return !isNaN(run);
-    }));
+    
   }
 
   createStatsByStatus(status) {
-    return this.testsStore.results.filter(function(test) {
-      let mostRecent = this.findMostRecentRun(test);
-      return test[mostRecent] === status;
-    }.bind(this)).length;
+
   }
 
   createStats() {

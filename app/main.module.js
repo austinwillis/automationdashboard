@@ -26,6 +26,7 @@ import {
 import { TestsStore } from './services/tests.service';
 import { AuthService } from './services/auth.service';
 import { FilterPipe } from './pipes';
+import { OrderByPipe } from './pipes';
 import { routes } from './components/test.routes';
 
 @NgModule({
@@ -36,6 +37,7 @@ import { routes } from './components/test.routes';
     TestDetailComponent,
     HeaderComponent,
     FilterPipe,
+    OrderByPipe,
     SignInComponent,
     ResultsComponent,
     SummaryComponent

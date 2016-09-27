@@ -125,7 +125,7 @@ function generateReport(auth) {
       sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: '1NGaOYZRjhJLl3-2KAAqCKaEiJHmRcm4wa5oXC1jMeqk',
-        range: 'AllResults!G9:P1943',
+        range: 'AllResults!J9:P1946',
       }, function(err, response) {
         results = response.values;
         callback(null, 1);
@@ -135,7 +135,7 @@ function generateReport(auth) {
       sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: '1NGaOYZRjhJLl3-2KAAqCKaEiJHmRcm4wa5oXC1jMeqk',
-        range: 'AllResults!G1:I1',
+        range: 'AllResults!G1',
       }, function(err, response) {
         dates = response.values;
         callback(null, 2);
@@ -145,7 +145,7 @@ function generateReport(auth) {
       sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: '1NGaOYZRjhJLl3-2KAAqCKaEiJHmRcm4wa5oXC1jMeqk',
-        range: 'AllResults!E9:E1943',
+        range: 'AllResults!E9:E1946',
       }, function(err, response) {
         tests = response.values;
         callback(null, 3);
@@ -163,14 +163,15 @@ function generateReport(auth) {
       //console.log(timestamps);
       for (let i = 0; i < timestamps.length; i++) {
         for (let v = 0; v < results.length; v++) {
-          var testname = tests[v].toString().replace('.', '_');
-          var object = {};
-          var dateObject = {};
-          dateObject['date'] = timestamps[2-i];
-          dateObject['result'] = results[v][i];
-          firebase.database().ref(`tests/${testname}/lastResult`).set(dateObject);
-          firebase.database().ref(`results/${testname}/`).push(dateObject);
-          firebase.database().ref(`results/${testname}/delete`).remove();
+          if (results[v][i] !== undefined) {
+            var testname = tests[v].toString().replace('.', '_');
+            var object = {};
+            var dateObject = {};
+            dateObject['date'] = timestamps[timestamps.length-1-i];
+            dateObject['result'] = results[v][i];
+            //console.log(dateObject);
+            firebase.database().ref(`tests/${testname}/lastResult/result`).set(results[v][i]);
+          }
         }
       }
       console.log('done');
