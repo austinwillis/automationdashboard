@@ -7,6 +7,10 @@
     animation: spin .5s linear infinite;
 }
 
+body {
+  background-color: #ddd;
+}
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -18,6 +22,7 @@
     border: 1px solid #eee;
     border-left-width: 5px;
     border-radius: 3px;
+    background-color: #fff;
 }
 .bs-callout h4 {
     margin-top: 0;
