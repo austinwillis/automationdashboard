@@ -24,6 +24,8 @@
     Show Results
   </button>
 </div>
-<div *ngIf="showResults" class="col-md-1">
+<div class="row">
+  <div *ngIf="showResults" class="col-md-12">
     <test-results [testname]="this.testname"></test-results>
+  </div>
 </div>

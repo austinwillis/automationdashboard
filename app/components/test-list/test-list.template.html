@@ -18,7 +18,7 @@
       </select>
     </div>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-3">
     <div class="input-group">
       <select #result (change)="this.resultFilter = result.value" class="search-field form-control">
         <option value="">All</option>
@@ -35,7 +35,7 @@
 <div *ngIf="testsStore.isLoading" class="row">
   <div class="col-md-2 offset-md-5 loader"></div>
 </div>
-<div *ngIf="!testsStore.isLoading" class="list-content">
+<div *ngIf="!testsStore.isLoading" class="list-content" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
   <div class="test-card row" *ngFor="let test of testsStore.tests | filter:suiteFilter:testFilter:resultFilter:statusFilter">
     <test-detail [test]="test"></test-detail>
   </div>

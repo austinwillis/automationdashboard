@@ -22,9 +22,7 @@ export class SummaryComponent {
   }
 
   ngOnInit() {
-    this.testsStore.getAllResults().subscribe(results => {
-      this.results = results;
-    })
+    this.createStats();
   }
 
   findMostRecentRun(test) {
@@ -34,15 +32,14 @@ export class SummaryComponent {
   }
 
   createStatsByStatus(status) {
-    return this.results.filter(function(test) {
+    return this.testsStore.results.filter(function(test) {
       let mostRecent = this.findMostRecentRun(test);
       return test[mostRecent] === status;
     }.bind(this)).length;
   }
 
   createStats() {
-    console.log('creating stats');
-    this.totalTests = this.results.length;
+    this.totalTests = this.testsStore.results.length;
     this.pass = this.createStatsByStatus('Pass');
     this.fail = this.createStatsByStatus('Fail');
     this.flake = this.createStatsByStatus('Flake');

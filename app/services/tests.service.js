@@ -6,18 +6,20 @@ import { AuthService } from './auth.service';
 export class TestsStore {
 
   isLoading = true;
-  tests: FirebaseListObservable;
   instance: TestsStore;
 
   constructor(af: AngularFire, auth: AuthService) {
-    if (TestsStore.instance) return TestsStore.instance;
+    console.log('construct service');
     this.af = af;
     this.auth = auth;
     af.database.list('/tests').subscribe(tests => {
       this.tests = tests;
       this.isLoading = false;
+      this.visisbleTests = this.tests.slice(0, this.numberVisible);
     });
-    this.instance = this;
+    af.database.list('/results').subscribe(results => {
+      this.results = results
+    })
   }
 
   updateResult(test, date, result) {
@@ -33,9 +35,5 @@ export class TestsStore {
 
   getResults(testname) {
     return this.af.database.list(`/results/${testname}`);
-  }
-
-  getAllResults() {
-    return this.af.database.list('/results');
   }
 }
