@@ -1,7 +1,7 @@
 <div [class.selected]="isSelected" (click)="selectElement($event)" [ngClass]="classMap">
   <div class="row">
-    <div class="col-md-3">{{ test['suite'] }}</div>
-    <div class="col-md-5">{{ test['$key'] }}</div>
+    <div class="col-md-2">{{ test['suite'] }}</div>
+    <div class="col-md-6">{{ test['$key'] }}</div>
     <div class="col-md-2">
       <div class="input-group">
         <select #status (change)="this.updateStatus(status.value)" class="search-field form-control">

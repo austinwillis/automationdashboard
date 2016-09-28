@@ -1,5 +1,8 @@
 <div class="row list-controls">
-  <div class="col-md-2">
+  <div class="col-md-1">
+    <button type="button" class="btn btn-secondary" (click)="testsStore.selectAllNotifier.next($event.target.value)">Select All</button>
+  </div>
+  <div class="col-md-1">
     <div class="input-group">
       <input (input)="suiteSubject.next($event.target.value)" class="search-field form-control" type="text" name="fname" placeholder="Search Suites" />
     </div>

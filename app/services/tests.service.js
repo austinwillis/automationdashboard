@@ -10,6 +10,7 @@ export class TestsStore {
   isLoading = true;
   loadedResults = false;
   loadingResults = new Subject();
+  selectAllNotifier = new Subject();
   selectedTests = [];
 
   constructor(af: AngularFire, auth: AuthService) {

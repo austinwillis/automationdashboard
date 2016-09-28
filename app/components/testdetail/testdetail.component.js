@@ -19,6 +19,20 @@ export class TestDetailComponent {
 
   constructor(testsStore: TestsStore) {
     this.testsStore = testsStore;
+    this.testsStore.selectAllNotifier.subscribe(notification => {
+      this.selectFromParent();
+    })
+  }
+
+  ngOnInit() {
+    this.selectNotifier.subscribe(notification => {
+      console.log(notification);
+    });
+  }
+
+  selectFromParent() {
+    this.isSelected = !this.isSelected;
+    this.isSelected ? this.addToSelected() : this.removeFromSelected();
   }
 
   selectElement(event) {
