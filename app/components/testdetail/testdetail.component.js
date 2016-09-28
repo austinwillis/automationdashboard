@@ -15,9 +15,17 @@ import template from './testdetail.template.html';
 export class TestDetailComponent {
   latestResult = '';
   showResults = false;
+  isSelected = false;
 
   constructor(testsStore: TestsStore) {
     this.testsStore = testsStore;
+  }
+
+  selectElement(event) {
+    if (event.ctrlKey) {
+      console.log(this.isSelected);
+      this.isSelected = !this.isSelected;
+    }
   }
 
   toggleResults() {
@@ -25,8 +33,7 @@ export class TestDetailComponent {
   }
 
   ngOnInit() {
-    this.lastResultValue = this.test.lastResult[Object.keys(this.test.lastResult)[0]];
-    this.classMap = this.findClassMapByResult(this.lastResultValue);
+    this.classMap = this.findClassMapByResult(this.test.lastResult.result);
     this.testname = this.test.$key;
   }
 
@@ -39,20 +46,21 @@ export class TestDetailComponent {
     };
 
     switch(result) {
-      case 'Pass':
-        return Object.assign(classMap, { 'card-success': true });
-      case 'Fail':
-      case 'Skip':
-        return Object.assign(classMap, { 'card-danger': true });
-      case 'Flake':
-        return Object.assign(classMap, { 'card-info': true });
-      case 'Bug':
-        return Object.assign(classMap, { 'card-warning': true });
+      case 'PASS':
+        return Object.assign(classMap, { 'bs-callout bs-callout-success': true });
+      case 'FAIL':
+        return Object.assign(classMap, { 'bs-callout bs-callout-danger': true });
+      case 'SKIP':
+        return Object.assign(classMap, { 'bs-callout bs-callout-warning': true });
+      case 'FLAKE':
+        return Object.assign(classMap, { 'bs-callout bs-callout-info': true });
+      case 'BUG':
+        return Object.assign(classMap, { 'bs-callout bs-callout-default': true });
     }
   }
 
   updateResult(result) {
-    this.testsStore.updateResult(this.test, Object.keys(this.test.lastResult)[0], result);
+    this.testsStore.updateResult(this.test, this.test.lastResult.date, result);
   }
 
   updateStatus(status) {

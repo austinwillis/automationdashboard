@@ -1,4 +1,5 @@
-<div class="card-inverse" [ngClass]="classMap">
+<div [class.selected]="isSelected" (click)="selectElement($event)" [ngClass]="classMap">
+  <div class="row">
     <div class="col-md-3">{{ test['suite'] }}</div>
     <div class="col-md-5">{{ test['$key'] }}</div>
     <div class="col-md-2">
@@ -12,18 +13,23 @@
     <div class="col-md-1">
       <div class="input-group">
         <select #result (change)="this.updateResult(result.value)" class="search-field form-control">
-          <option [selected]="lastResultValue === 'Pass'" value="Pass">Pass</option>
-          <option [selected]="lastResultValue === 'Flake'" value="Flake">Flake</option>
-          <option [selected]="lastResultValue === 'Fail'" value="Fail">Fail</option>
-          <option [selected]="lastResultValue === 'Bug'" value="Bug">Bug</option>
-          <option [selected]="lastResultValue === 'Skip'" value="Skip">Skip</option>
+          <option [selected]="this.test.lastResult.result === 'PASS'" value="PASS">Pass</option>
+          <option [selected]="this.test.lastResult.result === 'FLAKE'" value="FLAKE">Flake</option>
+          <option [selected]="this.test.lastResult.result === 'FAIL'" value="FAIL">Fail</option>
+          <option [selected]="this.test.lastResult.result === 'BUG'" value="BUG">Bug</option>
+          <option [selected]="this.test.lastResult.result === 'SKIP'" value="SKIP">Skip</option>
         </select>
       </div>
     </div>
-  <button (click)="this.toggleResults()" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-    Show Results
-  </button>
-</div>
-<div *ngIf="showResults" class="col-md-1">
-    <test-results [testname]="this.testname"></test-results>
+    <div class="col-md-1">
+      <button (click)="this.toggleResults()" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+        Show Results
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div *ngIf="showResults" class="col-md-12">
+      <test-results [testname]="this.testname"></test-results>
+    </div>
+  </div>
 </div>

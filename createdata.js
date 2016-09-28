@@ -15,9 +15,8 @@ array.forEach(function(item, index) {
   if (test[1] != undefined) {
     var testname = test[1].replace(/(\n|\r)+$/, '').replace('.', '_');
     var resultsObject = {};
-    resultsObject[date] = "Pass";
-    suites[testname] = { 'suite': test[0], 'lastResult': resultsObject };
-    results[testname] = resultsObject;
+    suites[testname] = { 'suite': test[0], 'lastResult': 'Pass', 'status': 'Consistent' };
+    results[testname] = {'delete' : 'me'};
   }
 })
 

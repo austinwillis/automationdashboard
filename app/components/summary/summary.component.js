@@ -22,31 +22,36 @@ export class SummaryComponent {
   }
 
   ngOnInit() {
-    this.testsStore.getAllResults().subscribe(results => {
-      this.results = results;
-    })
+    if (!this.testsStore.loadedResults) {
+      this.testsStore.loadingResults.subscribe(results => {
+        this.createStats();
+      });
+    } else {
+      this.createStats();
+    }
   }
 
   findMostRecentRun(test) {
-    return Math.max(Object.keys(test).filter(function(run) {
-      return !isNaN(run);
-    }));
+    return Object.keys(test).reduce(function(max, current) {
+      return Math.max(max, isNaN(test[current].date) ? 0 : test[current].date );
+    }, 0);
   }
 
   createStatsByStatus(status) {
-    return this.results.filter(function(test) {
-      let mostRecent = this.findMostRecentRun(test);
-      return test[mostRecent] === status;
-    }.bind(this)).length;
+    return this.testsStore.results.filter(test => {
+      var mostRecent = this.findMostRecentRun(test);
+      return !!Object.keys(test).filter(key => {
+        return test[key].date === mostRecent && test[key].result === status;
+      }).length;
+    }).length;
   }
 
   createStats() {
-    console.log('creating stats');
-    this.totalTests = this.results.length;
-    this.pass = this.createStatsByStatus('Pass');
-    this.fail = this.createStatsByStatus('Fail');
-    this.flake = this.createStatsByStatus('Flake');
-    this.skip = this.createStatsByStatus('Skip');
-    this.bug = this.createStatsByStatus('Bug');
+    this.totalTests = this.testsStore.results.length;
+    this.pass = this.createStatsByStatus('PASS');
+    this.fail = this.createStatsByStatus('FAIL');
+    this.flake = this.createStatsByStatus('FLAKE');
+    this.skip = this.createStatsByStatus('SKIP');
+    this.bug = this.createStatsByStatus('BUG');
   }
 }

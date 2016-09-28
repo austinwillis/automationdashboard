@@ -6,8 +6,8 @@ import { NgModule } from '@angular/core';
 import { AuthProviders, FirebaseAuth } from 'angularfire2';
 import { FirebaseModule } from './firebase';
 import { AngularFire } from 'angularfire2';
-import { DataScrollerModule } from 'primeng/primeng';
 import { enableProdMode } from '@angular/core';
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 import {
   TestComponent,
@@ -22,10 +22,10 @@ import {
 import {
   AuthGuard
 } from './guards';
-
 import { TestsStore } from './services/tests.service';
 import { AuthService } from './services/auth.service';
 import { FilterPipe } from './pipes';
+import { OrderByPipe } from './pipes';
 import { routes } from './components/test.routes';
 
 @NgModule({
@@ -36,6 +36,7 @@ import { routes } from './components/test.routes';
     TestDetailComponent,
     HeaderComponent,
     FilterPipe,
+    OrderByPipe,
     SignInComponent,
     ResultsComponent,
     SummaryComponent
@@ -45,7 +46,7 @@ import { routes } from './components/test.routes';
     FormsModule,
     FirebaseModule,
     HttpModule,
-    DataScrollerModule,
+    InfiniteScrollModule,
     RouterModule.forRoot(routes, {
       useHash: true
     })

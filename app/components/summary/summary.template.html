@@ -1,8 +1,7 @@
-<div *ngIf="testsStore.loadingResults" class="row">
+<div *ngIf="this.pass === 0" class="row">
   <div class="col-md-2 offset-md-5 loader"></div>
 </div>
-<div (click)="createStats()">Reload</div>
-<div *ngIf="!testsStore.loadingResults" class="row">
+<div *ngIf="this.pass !== 0" class="row">
   <table>
     <thead>
       <tr>

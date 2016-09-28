@@ -9,7 +9,7 @@ export class FilterPipe implements PipeTransform {
       return value.filter((item) => item.suite.toLowerCase().includes(suite.toLowerCase())
        && item.$key.toLowerCase().includes(test.toLowerCase())
        && item.status.includes(status)
-       && item.lastResult[Object.keys(item.lastResult)[0]].includes(result));
+       && item.lastResult.result.includes(result));
     } else {
       return value;
     }

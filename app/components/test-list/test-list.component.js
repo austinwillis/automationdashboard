@@ -4,9 +4,9 @@ import { FirebaseListObservable } from 'angularfire2';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 
-import { TestsStore } from '../../services/tests.service';
 import { TestDetailComponent } from '../../components';
 import { HeaderComponent } from '../../components';
+import { TestsStore } from '../../services/tests.service'
 
 import template from './test-list.template.html';
 
@@ -21,15 +21,16 @@ import template from './test-list.template.html';
 export class TestListComponent {
   suiteSubject = new Subject();
   testSubject = new Subject();
+  filteredTests: Array = [];
 
   constructor(route: ActivatedRoute, testsStore: TestsStore) {
+    this.testsStore = testsStore;
     this._route = route;
     this._currentStatus = '';
-    this.testsStore = testsStore;
 
     this.suiteFilter = '';
     this.testFilter = '';
-    this.resultFilter = '';
+    this.resultFilter = 'FAIL';
     this.statusFilter = 'Consistent';
 
     this.suiteSubject
@@ -46,5 +47,9 @@ export class TestListComponent {
       .subscribe((status) => {
         this._currentStatus = status;
       });
+  }
+
+  onScroll() {
+    console.log('scroll');
   }
 }

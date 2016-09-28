@@ -9,9 +9,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let result of results">
-      <td>{{ result.$key | date }}</td>
-      <td>{{ result.$value }}</td>
+    <tr *ngFor="let result of results | orderBy">
+      <td>{{ result.date | date }}</td>
+      <td>{{ result.result }}</td>
     </tr>
   </tbody>
 </table>

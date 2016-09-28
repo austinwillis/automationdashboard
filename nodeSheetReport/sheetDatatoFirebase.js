@@ -117,80 +117,64 @@ function storeToken(token) {
  */
 function generateReport(auth) {
   var sheets = google.sheets('v4');
-  var t = new Table;
-  var Quarantine = [];
-  var Consistent = [];
-  var data = [];
+  var dates;
+  var results;
+  var tests;
   async.auto({
     one: function(callback) {
       sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: '1NGaOYZRjhJLl3-2KAAqCKaEiJHmRcm4wa5oXC1jMeqk',
-        range: 'Consistent Tests!G2:G7',
+        range: 'AllResults!J9:P1946',
       }, function(err, response) {
-        if (err) {
-          console.log('The API returned an error: ' + err);
-          return;
-        }
-        var rows = response.values;
-        if (rows.length == 0) {
-          console.log('No data found.');
-        } else {
-          for (var i = 0; i < rows.length; i++) {
-            Consistent.push(rows[i][0]);
-          }
-          callback(null, 1);
-        }
+        results = response.values;
+        callback(null, 1);
       });
     },
     two: function(callback) {
       sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: '1NGaOYZRjhJLl3-2KAAqCKaEiJHmRcm4wa5oXC1jMeqk',
-        range: 'Quarantine!G2:G7',
+        range: 'AllResults!G1',
       }, function(err, response) {
-      if (err) {
-        console.log('The API returned an error: ' + err);
-        return;
-      }
-      var rows = response.values;
-      if (rows.length == 0) {
-        console.log('No data found.');
-      } else {
-        for (var i = 0; i < rows.length; i++) {
-          Quarantine.push(rows[i][0]);
-        }
+        dates = response.values;
         callback(null, 2);
-        }
       });
     },
-    final: ['one', 'two', function(err, results) {
-      var results = [
-        "Pass",
-        "Flake",
-        "Bug",
-        "Fail",
-        "Skip"
-      ]
-      var totalConsistent = parseFloat(Consistent[0]);
-      var totalQuarantine = parseFloat(Quarantine[0]);
-      for (var i = 1; i < Consistent.length; i++) {
-        data.push({"result" : results[i-1], "consistent" : Consistent[i], "consistentPercent" : (parseFloat(Consistent[i]) / totalConsistent) * 100, "quarantine" :
-        Quarantine[i], "quarantinePercent" : (parseFloat(Quarantine[i]) / totalQuarantine) * 100});
+    three: function(callback) {
+      sheets.spreadsheets.values.get({
+        auth: auth,
+        spreadsheetId: '1NGaOYZRjhJLl3-2KAAqCKaEiJHmRcm4wa5oXC1jMeqk',
+        range: 'AllResults!E9:E1946',
+      }, function(err, response) {
+        tests = response.values;
+        callback(null, 3);
+      });
+    },
+    final: ['one', 'two', 'three', function(err, response) {
+      var timestamps = [];
+      console.log(dates);
+      for (let i = 0; i < dates[0].length; i++) {
+        var myDate = dates[0][i].split("/");
+        var newDate = myDate[0]+","+myDate[1]+","+myDate[2];
+        timestamps.push(new Date(newDate).getTime());
       }
-      data.forEach(function(data) {
-        t.cell('Result', data.result);
-        t.cell('Consistent', parseInt(data.consistent), Table.padLeft)// + ' (' + data.consistentPercent.toFixed(1).toString() + '%' + ')', rightAlignPercent);
-        t.cell('Quarantine', parseInt(data.quarantine), Table.padLeft)// + ' (' + data.quarantinePercent.toFixed(1).toString() + '%' + ')', rightAlignPercent);
-        t.newRow();
-      })
-      t.total('Consistent', Table.padLeft);
-      t.total('Quarantine', Table.padLeft);
-      console.log(t.toString());
+      console.log(timestamps);
+      //console.log(timestamps);
+      for (let i = 0; i < timestamps.length; i++) {
+        for (let v = 0; v < results.length; v++) {
+          if (results[v][i] !== undefined) {
+            var testname = tests[v].toString().replace('.', '_');
+            var object = {};
+            var dateObject = {};
+            dateObject['date'] = timestamps[timestamps.length-1-i];
+            dateObject['result'] = results[v][i];
+            //console.log(dateObject);
+            firebase.database().ref(`tests/${testname}/lastResult/result`).set(results[v][i]);
+          }
+        }
+      }
+      console.log('done');
     }]
   });
-}
-
-function rightAlignPercent(val, width) {
-  return Table.padLeft(val, width);
 }
