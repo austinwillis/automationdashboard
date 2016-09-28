@@ -30,7 +30,7 @@
       </select>
     </div>
   </div>
-  <div class="btn-group col-md-2" dropdown [(isOpen)]="status.isopen">
+  <div class="btn-group col-md-2" dropdown [(isOpen)]="status.isResultOpen" >
     <button id="result-button" type="button" class="btn btn-secondary" dropdownToggle>
       Mass Change Result
     </button>
@@ -42,7 +42,7 @@
       <li role="menuitem"><a class="dropdown-item" (click)="this.testsStore.massChangeResult('BUG')" href="#">Bug</a></li>
     </ul>
   </div>
-  <div class="btn-group col-md-2" dropdown [(isOpen)]="status.isopen">
+  <div class="btn-group col-md-2" dropdown [(isOpen)]="status.isStatusOpen">
     <button id="status-button" type="button" class="btn btn-secondary" dropdownToggle>
       Mass Change Status
     </button>
