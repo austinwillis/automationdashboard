@@ -31,7 +31,7 @@
     </div>
   </div>
   <div class="btn-group col-md-2" dropdown [(isOpen)]="status.isResultOpen" >
-    <button id="result-button" type="button" class="btn btn-secondary" dropdownToggle>
+    <button [disabled]="this.testsStore.selectedTests.length === 0" id="result-button" type="button" class="btn btn-secondary" dropdownToggle>
       Mass Change Result
     </button>
     <ul dropdownMenu role="menu" aria-labelledby="result-button">
@@ -43,7 +43,7 @@
     </ul>
   </div>
   <div class="btn-group col-md-2" dropdown [(isOpen)]="status.isStatusOpen">
-    <button id="status-button" type="button" class="btn btn-secondary" dropdownToggle>
+    <button [disabled]="this.testsStore.selectedTests.length === 0" id="status-button" type="button" class="btn btn-secondary" dropdownToggle>
       Mass Change Status
     </button>
     <ul dropdownMenu role="menu" aria-labelledby="status-button">

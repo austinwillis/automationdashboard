@@ -59,18 +59,19 @@ export class TestsStore {
   }
 
   updateResult(test, result) {
+    console.log('update');
     this.af.database.object(`/tests/${test['$key']}/lastResult/result`).set(result)
-    this.af.database.list(`/results/${test['$key']}/`, {
-      query: {
-        orderByChild: 'date',
-        equalTo:  test.lastResult.date
+    var key = test.$key;
+    var resultsForTest = this.results.filter(results => {
+      return results.$key === key;
+    })[0];
+    var resultKey = '';
+    for (var k in resultsForTest) {
+      if (k !== '$key' && k !== '$exists' && resultsForTest[k].date === test.lastResult.date) {
+        resultKey = k;
       }
-    }).subscribe(results => {
-      if (results['0'] !== undefined) {
-        var key = results['0'].$key;
-        this.af.database.object(`/results/${test['$key']}/${key}/result`).set(result);
-      }
-    })
+    }
+    this.af.database.object(`results/${test['$key']}/${resultKey}/result`).set(result);
   }
 
   updateStatus(test, status) {
