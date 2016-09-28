@@ -61,6 +61,12 @@ export class TestsStore {
   updateResult(test, result) {
     console.log('update');
     this.af.database.object(`/tests/${test['$key']}/lastResult/result`).set(result)
+    var resultKey = getKeyOfNewestResult(test);
+    console.log(resultKey);
+    //this.af.database.object(`results/${test['$key']}/${resultKey}/result`).set(result);
+  }
+
+  getKeyOfNewestResult(test) {
     var key = test.$key;
     var resultsForTest = this.results.filter(results => {
       return results.$key === key;
@@ -71,7 +77,7 @@ export class TestsStore {
         resultKey = k;
       }
     }
-    this.af.database.object(`results/${test['$key']}/${resultKey}/result`).set(result);
+    return resultKey;
   }
 
   updateStatus(test, status) {
