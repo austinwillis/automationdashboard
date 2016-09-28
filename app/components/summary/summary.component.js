@@ -115,5 +115,6 @@ export class SummaryComponent {
     this.flake = this.options.series[0].data[2].y = this.createStatsByStatus('FLAKE');
     this.skip = this.options.series[0].data[3].y = this.createStatsByStatus('SKIP');
     this.bug = this.options.series[0].data[4].y = this.createStatsByStatus('BUG');
+    this.saveInstance(this.chart);
   }
 }

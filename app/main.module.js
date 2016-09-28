@@ -11,6 +11,7 @@ import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 import { DropdownModule } from 'ng2-bootstrap/ng2-bootstrap';
 import { ChartModule, Highcharts } from 'angular2-highcharts';
 import * as Highcharts3d       from 'highcharts/highcharts-3d';
+import { ModalModule } from 'ng2-bs4-modal/ng2-bs4-modal';
 
 import {
   TestComponent,
@@ -50,6 +51,7 @@ import { routes } from './components/test.routes';
     FirebaseModule,
     ChartModule,
     HttpModule,
+    ModalModule,
     InfiniteScrollModule,
     DropdownModule,
     RouterModule.forRoot(routes, {

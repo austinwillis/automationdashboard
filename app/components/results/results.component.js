@@ -22,4 +22,8 @@ export class ResultsComponent {
       this.isLoading = false;
     });
   }
+
+  updateTeamMember(testname, key, member) {
+    this.testsStore.updateTeamMemberByResultKey(testname, key, member);
+  }
 }

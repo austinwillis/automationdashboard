@@ -125,7 +125,7 @@ function generateReport(auth) {
       sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: '1NGaOYZRjhJLl3-2KAAqCKaEiJHmRcm4wa5oXC1jMeqk',
-        range: 'AllResults!J9:P1946',
+        range: 'AllResults!G9:G1946',
       }, function(err, response) {
         results = response.values;
         callback(null, 1);
@@ -169,8 +169,8 @@ function generateReport(auth) {
             var dateObject = {};
             dateObject['date'] = timestamps[timestamps.length-1-i];
             dateObject['result'] = results[v][i];
-            //console.log(dateObject);
-            firebase.database().ref(`tests/${testname}/lastResult/result`).set(results[v][i]);
+            console.log(dateObject);
+            firebase.database().ref(`testing`).push(results[v][i]);
           }
         }
       }

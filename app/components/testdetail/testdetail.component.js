@@ -14,44 +14,37 @@ import template from './testdetail.template.html';
 })
 export class TestDetailComponent {
   latestResult = '';
-  showResults = false;
+  showInfo = false;
   isSelected = false;
 
   constructor(testsStore: TestsStore) {
     this.testsStore = testsStore;
-    this.testsStore.selectAllNotifier.subscribe(notification => {
-      this.selectFromParent();
-    })
+  }
+
+  unselect() {
+
   }
 
   ngOnInit() {
-    this.selectNotifier.subscribe(notification => {
-      console.log(notification);
-    });
+
   }
 
   selectFromParent() {
-    this.isSelected = !this.isSelected;
-    this.isSelected ? this.addToSelected() : this.removeFromSelected();
+
   }
 
   selectElement(event) {
     if (event.ctrlKey) {
-      this.isSelected = !this.isSelected;
-      this.isSelected ? this.addToSelected() : this.removeFromSelected();
+      if (!this.test.selected) {
+        this.testsStore.selectSubject.next(this.test.$key);
+      } else {
+        this.testsStore.unselectSubject.next(this.test.$key);
+      }
     }
   }
 
-  addToSelected() {
-    this.testsStore.addToSelected(this.test);
-  }
-
-  removeFromSelected() {
-    this.testsStore.removeFromSelected(this.test);
-  }
-
-  toggleResults() {
-    this.showResults = !this.showResults;
+  toggleInfo() {
+    this.showInfo = !this.showInfo;
   }
 
   ngOnInit() {
