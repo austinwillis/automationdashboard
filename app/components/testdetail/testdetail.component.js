@@ -23,9 +23,17 @@ export class TestDetailComponent {
 
   selectElement(event) {
     if (event.ctrlKey) {
-      console.log(this.isSelected);
       this.isSelected = !this.isSelected;
+      this.isSelected ? this.addToSelected() : this.removeFromSelected();
     }
+  }
+
+  addToSelected() {
+    this.testsStore.addToSelected(this.test);
+  }
+
+  removeFromSelected() {
+    this.testsStore.removeFromSelected(this.test);
   }
 
   toggleResults() {
@@ -60,7 +68,7 @@ export class TestDetailComponent {
   }
 
   updateResult(result) {
-    this.testsStore.updateResult(this.test, this.test.lastResult.date, result);
+    this.testsStore.updateResult(this.test, result);
   }
 
   updateStatus(status) {

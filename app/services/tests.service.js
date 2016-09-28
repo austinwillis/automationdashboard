@@ -10,6 +10,7 @@ export class TestsStore {
   isLoading = true;
   loadedResults = false;
   loadingResults = new Subject();
+  selectedTests = [];
 
   constructor(af: AngularFire, auth: AuthService) {
     this.af = af;
@@ -30,12 +31,39 @@ export class TestsStore {
     return this.results;
   }
 
-  updateResult(test, date, result) {
+  massChangeStatus(status) {
+    var self = this;
+    this.selectedTests.forEach(function(test) {
+      self.updateStatus(test, status);
+    });
+    this.selectedTests = [];
+  }
+
+  massChangeResult(result) {
+    var self = this;
+    this.selectedTests.forEach(function(test) {
+      self.updateResult(test, result);
+    });
+    this.selectedTests = [];
+  }
+
+  addToSelected(test) {
+    this.selectedTests.push(test);
+  }
+
+  removeFromSelected(test) {
+    var index = this.selectedTests.indexOf(test);
+    if (index > -1) {
+      this.selectedTests.splice(index,1);
+    }
+  }
+
+  updateResult(test, result) {
     this.af.database.object(`/tests/${test['$key']}/lastResult/result`).set(result)
     this.af.database.list(`/results/${test['$key']}/`, {
       query: {
         orderByChild: 'date',
-        equalTo:  date
+        equalTo:  test.lastResult.date
       }
     }).subscribe(results => {
       if (results['0'] !== undefined) {
