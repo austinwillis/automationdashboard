@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FirebaseListObservable } from 'angularfire2';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
+import { DROPDOWN_DIRECTIVES } from 'ng2-dropdown';
 
 import { TestDetailComponent } from '../../components';
 import { HeaderComponent } from '../../components';
@@ -14,6 +15,7 @@ import template from './test-list.template.html';
   selector: 'test-list',
   template: template,
   directives: [
+    DROPDOWN_DIRECTIVES,
     TestDetailComponent
   ]
 })

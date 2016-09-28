@@ -8,6 +8,7 @@ import { FirebaseModule } from './firebase';
 import { AngularFire } from 'angularfire2';
 import { enableProdMode } from '@angular/core';
 import { InfiniteScrollModule } from 'angular2-infinite-scroll';
+import { DropdownModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import {
   TestComponent,
@@ -47,6 +48,7 @@ import { routes } from './components/test.routes';
     FirebaseModule,
     HttpModule,
     InfiniteScrollModule,
+    DropdownModule,
     RouterModule.forRoot(routes, {
       useHash: true
     })
