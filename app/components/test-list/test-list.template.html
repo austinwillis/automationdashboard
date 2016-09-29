@@ -4,7 +4,7 @@
       Select All
     </button>
   </div>
-  <div class="col-md-1">
+  <div class="col-md-2">
     <div class="input-group">
       <input (input)="this.testsStore.suiteSubject.next($event.target.value)" class="search-field form-control" type="text" name="fname" placeholder="Search Suites" />
     </div>
@@ -23,7 +23,7 @@
       </select>
     </div>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-1">
     <div class="input-group">
       <select #result (change)="this.testsStore.resultSubject.next($event.target.value)" class="search-field form-control">
         <option [selected]="this.testsStore.resultFilter === ''" value="">All</option>
