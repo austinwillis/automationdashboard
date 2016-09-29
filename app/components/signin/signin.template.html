@@ -1,6 +1,14 @@
-<div class="sign-in">
-  <div>
-    <h1 class="sign-in__heading">Sign in</h1>
-    <button class="sign-in__button" (click)="signInWithGoogle()" type="button">Google</button>
+<div class="row">
+  <div class="card col-md-5 offset-md-4">
+    <div class="card-block">
+      <div class="row">
+        <h4 class="card-title col-md-2 offset-md-5">Sign In</h4>
+      </div>
+      <div class="m-x-auto" style="width: 200px;">
+        <button (click)="signInWithGoogle()" class="loginBtn loginBtn--google m-x-auto">
+          Login with Google
+        </button>
+      </div>
+    </div>
   </div>
 </div>
