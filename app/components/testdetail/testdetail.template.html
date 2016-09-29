@@ -4,7 +4,7 @@
     <div class="col-md-8">{{ test['$key'] }}</div>
     <div class="col-md-1">
       <div class="input-group">
-        <select #result (change)="this.updateResult(result.value)" class="search-field form-control">
+        <select #result [disabled]="this.testsStore.selectedTests.length > 0" (change)="this.updateResult(result.value)" class="search-field form-control">
           <option [selected]="this.test.lastResult.result === 'PASS'" value="PASS">Pass</option>
           <option [selected]="this.test.lastResult.result === 'FLAKE'" value="FLAKE">Flake</option>
           <option [selected]="this.test.lastResult.result === 'FAIL'" value="FAIL">Fail</option>

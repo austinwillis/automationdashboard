@@ -2,7 +2,6 @@ import { Component, ViewChild  } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FirebaseListObservable } from 'angularfire2';
 import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/debounceTime';
 import { DROPDOWN_DIRECTIVES } from 'ng2-dropdown';
 
 import { TestDetailComponent } from '../../components';
@@ -26,6 +25,7 @@ export class TestListComponent {
   statusModal: ModalComponent;
   @ViewChild('ResultModal')
   resultModal: ModalComponent;
+  visibleTests = [];
 
   constructor(route: ActivatedRoute, testsStore: TestsStore) {
     this.testsStore = testsStore;
@@ -39,6 +39,16 @@ export class TestListComponent {
       .subscribe((status) => {
         this._currentStatus = status;
       });
+    this.testsStore.filteredTestsSubject.subscribe(tests => {
+      this.filteredTests = tests;
+      if (this.filteredTests != undefined) {
+        this.initializeVisibleTests();
+      }
+    });
+  }
+
+  initializeVisibleTests() {
+    this.visibleTests = this.filteredTests.slice(0, 30);
   }
 
   confirmMassResultChange() {
@@ -67,6 +77,10 @@ export class TestListComponent {
   }
 
   onScroll() {
-    console.log('scroll');
+    if (this.visibleTests.length < this.filteredTests.length - 15) {
+      this.visibleTests.push(...this.filteredTests.splice(this.visibleTests.length, this.visibleTests.length + 20));
+    } else {
+      this.visibleTests.push(...this.filteredTests.splice(this.visibleTests.lenth, this.filteredTests.length));
+    }
   }
 }

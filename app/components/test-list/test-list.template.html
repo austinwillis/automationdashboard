@@ -17,21 +17,21 @@
   <div class="col-md-2">
     <div class="input-group">
       <select #status (change)="this.testsStore.statusSubject.next($event.target.value)" class="search-field form-control">
-        <option [selected]="this.statusFilter === ''" value="">All</option>
-        <option [selected]="this.statusFilter === 'Consistent'" value="Consistent">Consistent</option>
-        <option [selected]="this.statusFilter === 'Quarantine'" value="Quarantine">Quarantine</option>
+        <option [selected]="this.testsStore.statusFilter === ''" value="">All</option>
+        <option [selected]="this.testsStore.statusFilter === 'Consistent'" value="Consistent">Consistent</option>
+        <option [selected]="this.testsStore.statusFilter === 'Quarantine'" value="Quarantine">Quarantine</option>
       </select>
     </div>
   </div>
   <div class="col-md-2">
     <div class="input-group">
       <select #result (change)="this.testsStore.resultSubject.next($event.target.value)" class="search-field form-control">
-        <option [selected]="this.resultFilter === ''" value="">All</option>
-        <option [selected]="this.resultFilter === 'PASS'" value="PASS">Pass</option>
-        <option [selected]="this.resultFilter === 'FLAKE'" value="FLAKE">Flake</option>
-        <option [selected]="this.resultFilter === 'FAIL'" value="FAIL">Fail</option>
-        <option [selected]="this.resultFilter === 'BUG'" value="BUG">Bug</option>
-        <option [selected]="this.resultFilter === 'SKIP'" value="SKIP">Skip</option>
+        <option [selected]="this.testsStore.resultFilter === ''" value="">All</option>
+        <option [selected]="this.testsStore.resultFilter === 'PASS'" value="PASS">Pass</option>
+        <option [selected]="this.testsStore.resultFilter === 'FLAKE'" value="FLAKE">Flake</option>
+        <option [selected]="this.testsStore.resultFilter === 'FAIL'" value="FAIL">Fail</option>
+        <option [selected]="this.testsStore.resultFilter === 'BUG'" value="BUG">Bug</option>
+        <option [selected]="this.testsStore.resultFilter === 'SKIP'" value="SKIP">Skip</option>
       </select>
     </div>
   </div>
@@ -61,7 +61,7 @@
   <div class="col-md-2 offset-md-5 loader"></div>
 </div>
 <div *ngIf="!testsStore.isLoading" class="list-content" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
-  <div *ngFor="let test of this.testsStore.filteredTests">
+  <div *ngFor="let test of visibleTests">
     <test-detail [test]="test"></test-detail>
   </div>
 </div>

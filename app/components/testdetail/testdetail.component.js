@@ -21,18 +21,6 @@ export class TestDetailComponent {
     this.testsStore = testsStore;
   }
 
-  unselect() {
-
-  }
-
-  ngOnInit() {
-
-  }
-
-  selectFromParent() {
-
-  }
-
   selectElement(event) {
     if (event.ctrlKey) {
       if (!this.test.selected) {

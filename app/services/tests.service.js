@@ -3,6 +3,9 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Rx';
+import 'rxjs/add/operator/debounceTime';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
 import { FilterPipe } from '../pipes/filter/filter.pipe';
 
 @Injectable()
@@ -13,6 +16,8 @@ export class TestsStore {
   loadingResults = new Subject();
   selectedTests = [];
   tests = [];
+
+  filteredTestsSubject = new BehaviorSubject();
 
   selectAll = false;
   selectAllSubject = new Subject();
@@ -36,7 +41,7 @@ export class TestsStore {
     var self = this;
     af.database.list('/tests').subscribe(tests => {
       this.tests = tests;
-      this.filteredTests = this.filterAndSelectTests();
+      this.filterAndSelectTests();
       this.isLoading = false;
     });
     this.subscribeToFilters();
@@ -52,58 +57,63 @@ export class TestsStore {
   }
 
   filterAndSelectTests() {
-    return this.filter(this.tests, this.suiteFilter, this.testFilter, this.resultFilter, this.statusFilter).map(test => {
+    this.filteredTestsSubject.next(this.filter(this.tests, this.suiteFilter, this.testFilter, this.resultFilter, this.statusFilter).map(test => {
       if (this.selectedTests.indexOf(test.$key) > -1) {
         test.selected = true;
       } else {
         test.selected = false;
       }
       return test;
-    });
+    }));
+  }
+
+  getFilteredTests() {
+    return this.filter(this.tests, this.suiteFilter, this.testFilter, this.resultFilter, this.statusFilter);
   }
 
   subscribeToFilters() {
-    this.suiteSubject.subscribe(value => {
+    this.suiteSubject.debounceTime(300).subscribe(value => {
       this.suiteFilter = value;
-      this.filteredTests = this.filterAndSelectTests();
+      this.filterAndSelectTests();
     });
-    this.testSubject.subscribe(value => {
+    this.testSubject.debounceTime(300).subscribe(value => {
       this.testFilter = value;
-      this.filteredTests = this.filterAndSelectTests();
+      this.filterAndSelectTests();
     });
     this.resultSubject.subscribe(value => {
       this.resultFilter = value;
-      this.filteredTests = this.filterAndSelectTests();
+      this.filterAndSelectTests();
     });
     this.statusSubject.subscribe(value => {
       this.statusFilter = value;
-      this.filteredTests = this.filterAndSelectTests();
+      this.filterAndSelectTests();
     });
   }
 
   subscribeToSelect() {
     this.selectSubject.subscribe(test => {
       this.selectedTests.push(test);
-      this.filteredTests = this.filterAndSelectTests();
+      this.filterAndSelectTests();
     });
     this.unselectSubject.subscribe(test => {
       var index = this.selectedTests.indexOf(test);
       if (index > -1) {
         this.selectedTests.splice(index,1);
       }
-      this.filteredTests = this.filterAndSelectTests();
+      this.filterAndSelectTests();
     });
     this.selectAllSubject.subscribe(value => {
       if (this.selectAll) {
         this.selectedTests = [];
         this.selectAll = false;
-        this.filteredTests = this.filterAndSelectTests();
+        this.filterAndSelectTests();
       } else {
-        this.selectedTests = this.filteredTests.map(test => {
+        this.selectedTests = this.getFilteredTests().map(test => {
+          test.selected = true;
           return test.$key;
         });
         this.selectAll = true;
-        this.filteredTests = this.filterAndSelectTests();
+        this.filterAndSelectTests();
       }
     });
   }
@@ -118,7 +128,7 @@ export class TestsStore {
       self.updateStatus(test, status);
     });
     this.selectedTests = [];
-    this.filteredTests = this.filterAndSelectTests();
+    this.filterAndSelectTests();
   }
 
   massChangeResult(result) {
@@ -127,7 +137,7 @@ export class TestsStore {
       self.updateResult(test, result);
     });
     this.selectedTests = [];
-    this.filteredTests = this.filterAndSelectTests();
+    this.filterAndSelectTests();
   }
 
   updateResult(test, result) {
