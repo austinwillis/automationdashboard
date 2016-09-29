@@ -87,10 +87,10 @@ export class TestListComponent {
   }
 
   onScroll() {
-    if (this.visibleTests.length < this.filteredTests.length - 15) {
+    if (this.visibleTests.length < this.filteredTests.length - 20) {
       this.visibleTests.push(...this.filteredTests.slice(this.visibleTests.length, this.visibleTests.length + 20));
     } else {
-      this.visibleTests.push(...this.filteredTests.slice(this.visibleTests.lenth, this.filteredTests.length));
+      this.visibleTests = this.filteredTests;
     }
   }
 }

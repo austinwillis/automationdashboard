@@ -61,6 +61,10 @@
   <div class="col-md-2 offset-md-5 loader"></div>
 </div>
 <div *ngIf="!testsStore.isLoading" class="list-content" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
+  <div class="row">
+    <div class="col-md-2">Showing {{ this.visibleTests.length }} tests of {{ this.filteredTests.length }}</div>
+    <div class="offset-md-8 col-md-2">{{ this.testsStore.selectedTests.length }} tests Selected</div>
+  </div>
   <div *ngFor="let test of visibleTests">
     <test-detail [test]="test"></test-detail>
   </div>
