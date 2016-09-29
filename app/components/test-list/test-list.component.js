@@ -48,7 +48,11 @@ export class TestListComponent {
   }
 
   initializeVisibleTests() {
-    this.visibleTests = this.filteredTests.slice(0, 30);
+    if (this.visibleTests.length === 0) {
+      this.visibleTests = this.filteredTests.slice(0, 30);
+    } else {
+      this.visibleTests = this.filteredTests.slice(0, this.visibleTests.length);
+    }
   }
 
   confirmMassResultChange() {
