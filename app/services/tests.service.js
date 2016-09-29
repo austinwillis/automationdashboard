@@ -74,18 +74,22 @@ export class TestsStore {
   subscribeToFilters() {
     this.suiteSubject.debounceTime(300).subscribe(value => {
       this.suiteFilter = value;
+      this.selectedTests = [];
       this.filterAndSelectTests();
     });
     this.testSubject.debounceTime(300).subscribe(value => {
       this.testFilter = value;
+      this.selectedTests = [];
       this.filterAndSelectTests();
     });
     this.resultSubject.subscribe(value => {
       this.resultFilter = value;
+      this.selectedTests = [];
       this.filterAndSelectTests();
     });
     this.statusSubject.subscribe(value => {
       this.statusFilter = value;
+      this.selectedTests = [];
       this.filterAndSelectTests();
     });
   }
