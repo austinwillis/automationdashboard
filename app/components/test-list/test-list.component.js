@@ -27,6 +27,7 @@ export class TestListComponent {
   resultModal: ModalComponent;
   visibleTests = [];
   oldFilteredTests = [];
+  filteredTests = [];
 
   constructor(route: ActivatedRoute, testsStore: TestsStore) {
     this.testsStore = testsStore;
@@ -35,10 +36,6 @@ export class TestListComponent {
   }
 
   ngOnInit() {
-    this.testsStore.suiteSubject.next('');
-    this.testsStore.resultSubject.next('');
-    this.testsStore.statusSubject.next('');
-    this.testsStore.testSubject.next('');
     this._route.params
       .map(params => params.status)
       .subscribe((status) => {

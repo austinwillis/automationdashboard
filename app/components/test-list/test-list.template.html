@@ -1,4 +1,5 @@
-<div class="row list-controls">
+<div class="list-controls">
+  <div class="row">
   <div class="btn-group col-md-1">
     <button (click)="this.testsStore.selectAllSubject.next($event.target.value)" type="button" class="btn btn-secondary">
       Select All
@@ -6,12 +7,12 @@
   </div>
   <div class="col-md-2">
     <div class="input-group">
-      <input (input)="this.testsStore.suiteSubject.next($event.target.value)" class="search-field form-control" type="text" name="fname" placeholder="Search Suites" />
+      <input (input)="this.testsStore.suiteSubject.next($event.target.value)" [value]="this.testsStore.suiteFilter" class="search-field form-control" type="text" name="fname" placeholder="Search Suites" />
     </div>
   </div>
   <div class="col-md-2">
     <div class="input-group">
-      <input (input)="this.testsStore.testSubject.next($event.target.value)" class="search-field form-control" type="text" name="lname" placeholder="Search Tests" />
+      <input (input)="this.testsStore.testSubject.next($event.target.value)" [value]="this.testsStore.testFilter" class="search-field form-control" type="text" name="lname" placeholder="Search Tests" />
     </div>
   </div>
   <div class="col-md-2">
@@ -57,14 +58,15 @@
     </ul>
   </div>
 </div>
-<div *ngIf="testsStore.isLoading" class="row">
-  <div class="col-md-2 offset-md-5 loader"></div>
-</div>
-<div *ngIf="!testsStore.isLoading" class="list-content" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
-  <div class="row">
+  <div *ngIf="!testsStore.isLoading" class="row">
     <div class="col-md-2">Showing {{ this.visibleTests.length }} tests of {{ this.filteredTests.length }}</div>
     <div class="offset-md-8 col-md-2">{{ this.testsStore.selectedTests.length }} tests Selected</div>
   </div>
+</div>
+<div *ngIf="testsStore.isLoading" class="row">
+  <div class="col-md-2 offset-md-5 loader"></div>
+</div>
+<div *ngIf="!testsStore.isLoading" class="list-content" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="onScroll()">
   <div *ngFor="let test of visibleTests">
     <test-detail [test]="test"></test-detail>
   </div>

@@ -5,6 +5,7 @@
   <thead>
     <tr>
       <th>Date</th>
+      <th>Comment</th>
       <th>Team Member</th>
       <th>Result</th>
     </tr>
@@ -14,14 +15,13 @@
       <td>{{ result.date | date }}</td>
       <td>
         <div class="input-group">
-          <select #memberSelect (change)="this.updateTeamMember(testname, result.$key, memberSelect.value)" class="search-field form-control">
-            <option>None</option>
-            <option *ngFor="let member of this.testsStore.team"
-              [ngValue]="member.name"
-              [selected]="member.name === result.teamMember">{{ member.name }}</option>
-          </select>
+          <input #comment (keyup.enter)="this.commentSubject.next([testname, result.$key, comment.value])" [value]="result.comment" type="text" class="form-control" placeholder="Comment">
+          <span class="input-group-btn">
+            <button (click)="this.commentSubject.next([testname, result.$key, comment.value])" class="btn btn-secondary" type="button">Save</button>
+          </span>
         </div>
       </td>
+      <td>{{ result.teamMember }}</td>
       <td>{{ result.result }}</td>
     </tr>
   </tbody>

@@ -54,16 +54,20 @@ export class TestDetailComponent {
       case 'FAIL':
         return Object.assign(classMap, { 'bs-callout bs-callout-danger': true });
       case 'SKIP':
-        return Object.assign(classMap, { 'bs-callout bs-callout-warning': true });
+        return Object.assign(classMap, { 'bs-callout bs-callout-skip': true });
       case 'FLAKE':
         return Object.assign(classMap, { 'bs-callout bs-callout-info': true });
       case 'BUG':
-        return Object.assign(classMap, { 'bs-callout bs-callout-default': true });
+        return Object.assign(classMap, { 'bs-callout bs-callout-warning': true });
     }
   }
 
   updateResult(result) {
     this.testsStore.updateResult(this.testname, result);
+  }
+
+  updateTeamMember(member) {
+    this.testsStore.updateTeamMember(this.testname, member);
   }
 
   updateStatus(status) {

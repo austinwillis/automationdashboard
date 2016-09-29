@@ -1,7 +1,17 @@
 <div [class.selected]="test.selected" (click)="selectElement($event)" [ngClass]="classMap">
   <div class="row">
-    <div class="col-md-2">{{ test['suite'] }}</div>
-    <div class="col-md-8">{{ test['$key'] }}</div>
+    <div class="col-md-2">{{ test.suite }}</div>
+    <div class="col-md-6">{{ test.$key }}</div>
+    <div class="col-md-2">
+      <div class="input-group">
+        <select #memberSelect (change)="this.updateTeamMember(memberSelect.value)" class="search-field form-control">
+          <option>Nobody</option>
+          <option *ngFor="let member of this.testsStore.team"
+            [ngValue]="member.name"
+            [selected]="member.name === test.teamMember">{{ member.name }}</option>
+        </select>
+      </div>
+    </div>
     <div class="col-md-1">
       <div class="input-group">
         <select #result [disabled]="this.testsStore.selectedTests.length > 0" (change)="this.updateResult(result.value)" class="search-field form-control">

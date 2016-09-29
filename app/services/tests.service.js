@@ -20,14 +20,14 @@ export class TestsStore {
   filteredTestsSubject = new BehaviorSubject();
 
   selectAll = false;
-  selectAllSubject = new Subject();
-  suiteSubject = new Subject();
-  testSubject = new Subject();
-  resultSubject = new Subject();
-  statusSubject = new Subject();
+  selectAllSubject = new BehaviorSubject();
+  suiteSubject = new BehaviorSubject();
+  testSubject = new BehaviorSubject();
+  resultSubject = new BehaviorSubject();
+  statusSubject = new BehaviorSubject();
 
-  unselectSubject = new Subject();
-  selectSubject = new Subject();
+  unselectSubject = new BehaviorSubject();
+  selectSubject = new BehaviorSubject();
 
   suiteFilter = '';
   testFilter = '';
@@ -54,6 +54,10 @@ export class TestsStore {
       this.loadedResults = true;
       this.loadingResults.next();
     });
+    this.suiteSubject.next('');
+    this.testSubject.next('');
+    this.resultSubject.next('');
+    this.statusSubject.next('');
   }
 
   filterAndSelectTests() {
@@ -75,20 +79,24 @@ export class TestsStore {
     this.suiteSubject.debounceTime(300).subscribe(value => {
       this.suiteFilter = value;
       this.selectedTests = [];
+      this.selectAll = false;
       this.filterAndSelectTests();
     });
     this.testSubject.debounceTime(300).subscribe(value => {
       this.testFilter = value;
+      this.selectAll = false;
       this.selectedTests = [];
       this.filterAndSelectTests();
     });
     this.resultSubject.subscribe(value => {
       this.resultFilter = value;
+      this.selectAll = false;
       this.selectedTests = [];
       this.filterAndSelectTests();
     });
     this.statusSubject.subscribe(value => {
       this.statusFilter = value;
+      this.selectAll = false;
       this.selectedTests = [];
       this.filterAndSelectTests();
     });
@@ -132,6 +140,7 @@ export class TestsStore {
       self.updateStatus(test, status);
     });
     this.selectedTests = [];
+    this.selectAll = false;
     this.filterAndSelectTests();
   }
 
@@ -141,6 +150,7 @@ export class TestsStore {
       self.updateResult(test, result);
     });
     this.selectedTests = [];
+    this.selectAll = false;
     this.filterAndSelectTests();
   }
 
@@ -148,6 +158,12 @@ export class TestsStore {
     this.af.database.object(`/tests/${testname}/lastResult/result`).set(result)
     var resultKey = this.getKeyOfNewestResult(testname);
     this.af.database.object(`results/${testname}/${resultKey}/result`).set(result);
+  }
+
+  updateTeamMember(testname, member) {
+    this.af.database.object(`/tests/${testname}/teamMember`).set(member)
+    var resultKey = this.getKeyOfNewestResult(testname);
+    this.af.database.object(`results/${testname}/${resultKey}/teamMember`).set(member);
   }
 
   getKeyOfNewestResult(testname) {
@@ -169,13 +185,8 @@ export class TestsStore {
     this.af.database.object(`/tests/${testname}/status`).set(status);
   }
 
-  updateTeamMember(test, member) {
-    var resultKey = this.getKeyOfNewestResult(test);
-    this.af.database.object(`results/${test['$key']}/${resultKey}/teamMember`).set(result);
-  }
-
-  updateTeamMemberByResultKey(testname, key, member) {
-    this.af.database.object(`results/${testname}/${key}/teamMember`).set(member);
+  updateCommentByResultKey(testname, key, comment) {
+    this.af.database.object(`results/${testname}/${key}/comment`).set(comment);
   }
 
   getResults(testname) {
