@@ -14,14 +14,25 @@ import template from './testdetail.template.html';
 })
 export class TestDetailComponent {
   latestResult = '';
-  showResults = false;
+  showInfo = false;
+  isSelected = false;
 
   constructor(testsStore: TestsStore) {
     this.testsStore = testsStore;
   }
 
-  toggleResults() {
-    this.showResults = !this.showResults;
+  selectElement(event) {
+    if (event.ctrlKey) {
+      if (!this.test.selected) {
+        this.testsStore.selectSubject.next(this.test.$key);
+      } else {
+        this.testsStore.unselectSubject.next(this.test.$key);
+      }
+    }
+  }
+
+  toggleInfo() {
+    this.showInfo = !this.showInfo;
   }
 
   ngOnInit() {
@@ -43,19 +54,23 @@ export class TestDetailComponent {
       case 'FAIL':
         return Object.assign(classMap, { 'bs-callout bs-callout-danger': true });
       case 'SKIP':
-        return Object.assign(classMap, { 'bs-callout bs-callout-warning': true });
+        return Object.assign(classMap, { 'bs-callout bs-callout-skip': true });
       case 'FLAKE':
         return Object.assign(classMap, { 'bs-callout bs-callout-info': true });
       case 'BUG':
-        return Object.assign(classMap, { 'bs-callout bs-callout-default': true });
+        return Object.assign(classMap, { 'bs-callout bs-callout-warning': true });
     }
   }
 
   updateResult(result) {
-    this.testsStore.updateResult(this.test, this.test.lastResult.date, result);
+    this.testsStore.updateResult(this.testname, result);
+  }
+
+  updateTeamMember(member) {
+    this.testsStore.updateTeamMember(this.testname, member);
   }
 
   updateStatus(status) {
-    this.testsStore.updateStatus(this.test, status);
+    this.testsStore.updateStatus(this.testname, status);
   }
 }

@@ -1,42 +1,93 @@
-<div class="row list-controls">
-  <div class="col-md-3">
+<div class="list-controls">
+  <div class="row">
+  <div class="btn-group col-md-1">
+    <button (click)="this.testsStore.selectAllSubject.next($event.target.value)" type="button" class="btn btn-secondary">
+      Select All
+    </button>
+  </div>
+  <div class="col-md-2">
     <div class="input-group">
-      <input (input)="suiteSubject.next($event.target.value)" class="search-field form-control" type="text" name="fname" placeholder="Search Suites" />
+      <input (input)="this.testsStore.suiteSubject.next($event.target.value)" [value]="this.testsStore.suiteFilter" class="search-field form-control" type="text" name="fname" placeholder="Search Suites" />
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     <div class="input-group">
-      <input (input)="testSubject.next($event.target.value)" class="search-field form-control" type="text" name="lname" placeholder="Search Tests" />
+      <input (input)="this.testsStore.testSubject.next($event.target.value)" [value]="this.testsStore.testFilter" class="search-field form-control" type="text" name="lname" placeholder="Search Tests" />
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     <div class="input-group">
-      <select #status (change)="this.statusFilter = status.value" class="search-field form-control">
-        <option [selected]="this.statusFilter === ''" value="">All</option>
-        <option [selected]="this.statusFilter === 'Consistent'" value="Consistent">Consistent</option>
-        <option [selected]="this.statusFilter === 'Quarantine'" value="Quarantine">Quarantine</option>
+      <select #status (change)="this.testsStore.statusSubject.next($event.target.value)" class="search-field form-control">
+        <option [selected]="this.testsStore.statusFilter === ''" value="">All</option>
+        <option [selected]="this.testsStore.statusFilter === 'Consistent'" value="Consistent">Consistent</option>
+        <option [selected]="this.testsStore.statusFilter === 'Quarantine'" value="Quarantine">Quarantine</option>
       </select>
     </div>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-1">
     <div class="input-group">
-      <select #result (change)="this.resultFilter = result.value" class="search-field form-control">
-        <option value="">All</option>
-        <option value="PASS">Pass</option>
-        <option value="FLAKE">Flake</option>
-        <option value="FAIL">Fail</option>
-        <option value="BUG">Bug</option>
-        <option value="SKIP">Skip</option>
+      <select #result (change)="this.testsStore.resultSubject.next($event.target.value)" class="search-field form-control">
+        <option [selected]="this.testsStore.resultFilter === ''" value="">All</option>
+        <option [selected]="this.testsStore.resultFilter === 'PASS'" value="PASS">Pass</option>
+        <option [selected]="this.testsStore.resultFilter === 'FLAKE'" value="FLAKE">Flake</option>
+        <option [selected]="this.testsStore.resultFilter === 'FAIL'" value="FAIL">Fail</option>
+        <option [selected]="this.testsStore.resultFilter === 'BUG'" value="BUG">Bug</option>
+        <option [selected]="this.testsStore.resultFilter === 'SKIP'" value="SKIP">Skip</option>
       </select>
     </div>
+  </div>
+  <div class="btn-group col-md-2" dropdown [(isOpen)]="status.isResultOpen" >
+    <button [disabled]="this.testsStore.selectedTests.length === 0" id="result-button" type="button" class="btn btn-secondary" dropdownToggle>
+      Mass Change Result
+    </button>
+    <ul dropdownMenu role="menu" aria-labelledby="result-button">
+      <li role="menuitem"><a class="dropdown-item" (click)="this.openResultModal('PASS')" href="#">Pass</a></li>
+      <li role="menuitem"><a class="dropdown-item" (click)="this.openResultModal('FAIL')" href="#">Fail</a></li>
+      <li role="menuitem"><a class="dropdown-item" (click)="this.openResultModal('FLAKE')" href="#">Flake</a></li>
+      <li role="menuitem"><a class="dropdown-item" (click)="this.openResultModal('SKIP')" href="#">Skip</a></li>
+      <li role="menuitem"><a class="dropdown-item" (click)="this.openResultModal('BUG')" href="#">Bug</a></li>
+    </ul>
+  </div>
+  <div class="btn-group col-md-2" dropdown [(isOpen)]="status.isStatusOpen">
+    <button [disabled]="this.testsStore.selectedTests.length === 0" id="status-button" type="button" class="btn btn-secondary" dropdownToggle>
+      Mass Change Status
+    </button>
+    <ul dropdownMenu role="menu" aria-labelledby="status-button">
+      <li role="menuitem"><a class="dropdown-item" (click)="this.openStatusModal('Consistent')" href="#">Consistent</a></li>
+      <li role="menuitem"><a class="dropdown-item" (click)="this.openStatusModal('Quarantine')" href="#">Quarantine</a></li>
+    </ul>
   </div>
 </div>
-
+  <div *ngIf="!testsStore.isLoading" class="row">
+    <div class="col-md-2">Showing {{ this.visibleTests.length }} tests of {{ this.filteredTests.length }}</div>
+    <div class="offset-md-8 col-md-2">{{ this.testsStore.selectedTests.length }} tests Selected</div>
+  </div>
+</div>
 <div *ngIf="testsStore.isLoading" class="row">
   <div class="col-md-2 offset-md-5 loader"></div>
 </div>
-<div *ngIf="!testsStore.isLoading" class="list-content" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="500" (scrolled)="onScroll()">
-  <div *ngFor="let test of filteredTests">
+<div *ngIf="!testsStore.isLoading" class="list-content" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="onScroll()">
+  <div *ngFor="let test of visibleTests">
     <test-detail [test]="test"></test-detail>
   </div>
 </div>
+
+<modal #ResultModal>
+  <modal-header>
+      <h4 class="modal-title">Are you sure you want to change the result for {{ this.testsStore.selectedTests.length }} tests?</h4>
+  </modal-header>
+  <modal-footer>
+      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="this.cancel()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="this.confirmMassResultChange()">Confirm</button>
+  </modal-footer>
+</modal>
+
+<modal #StatusModal>
+  <modal-header>
+      <h4 class="modal-title">Are you sure you want to change the status for {{ this.testsStore.selectedTests.length }} tests?</h4>
+  </modal-header>
+  <modal-footer>
+      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="this.cancel()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="this.confirmMassChangeStatus()">Confirm</button>
+  </modal-footer>
+</modal>

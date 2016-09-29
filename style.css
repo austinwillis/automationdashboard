@@ -9,6 +9,19 @@
 
 body {
   background-color: #ddd;
+  font-family: 'Roboto', sans-serif;
+}
+
+.test-card:active {
+  background-color: #0275d8;
+}
+
+.pos-f-t-40 {
+  position: fixed;
+  top: 40;
+  right: 0;
+  left: 0;
+  z-index: $zindex-navbar-fixed;
 }
 
 @keyframes spin {
@@ -16,11 +29,16 @@ body {
     100% { transform: rotate(360deg); }
 }
 
+.bs-callout.selected {
+  background-color: #0275d8;
+  color: #fff;
+}
+
 .bs-callout {
     padding: 20px;
     margin: 20px 0;
     border: 1px solid #eee;
-    border-left-width: 5px;
+    border-left-width: 12px;
     border-radius: 3px;
     background-color: #fff;
 }
@@ -45,6 +63,9 @@ body {
 }
 .bs-callout-primary {
     border-left-color: #428bca;
+}
+.bs-callout-skip {
+    border-left-color: #f1ed0a;
 }
 .bs-callout-primary h4 {
     color: #428bca;

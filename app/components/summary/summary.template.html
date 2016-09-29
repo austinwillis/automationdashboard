@@ -1,25 +1,10 @@
-<div *ngIf="testsStore.loadingResults" class="row">
+<div *ngIf="this.pass === 0" class="row">
   <div class="col-md-2 offset-md-5 loader"></div>
 </div>
-<div *ngIf="!testsStore.loadingResults" class="row">
-  <table>
-    <thead>
-      <tr>
-        <th>Pass Percent</th>
-        <th>Flake Percent</th>
-        <th>Fail Percent</th>
-        <th>Skip Percent</th>
-        <th>Bug Percent</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{ (pass / totalTests) | percent }}</td>
-        <td>{{ (flake / totalTests) | percent }}</td>
-        <td>{{ (fail / totalTests) | percent }}</td>
-        <td>{{ (skip / totalTests) | percent }}</td>
-        <td>{{ (bug / totalTests) | percent }}</td>
-      </tr>
-    </tbody>
-  </table>
+<div *ngIf="this.pass !== 0" class="container">
+  <div class="row">
+    <div class="offset-md-3 col-md-5">
+      <chart [options]="options" (load)="saveInstance($event.context)"></chart>
+    </div>
+  </div>
 </div>
