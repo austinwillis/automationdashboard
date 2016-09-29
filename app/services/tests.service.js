@@ -146,18 +146,19 @@ export class TestsStore {
 
   updateResult(testname, result) {
     this.af.database.object(`/tests/${testname}/lastResult/result`).set(result)
-    var resultKey = this.getKeyOfNewestResult(test);
+    var resultKey = this.getKeyOfNewestResult(testname);
     this.af.database.object(`results/${testname}/${resultKey}/result`).set(result);
   }
 
-  getKeyOfNewestResult(test) {
-    var key = test.$key;
+  getKeyOfNewestResult(testname) {
     var resultsForTest = this.results.filter(results => {
-      return results.$key === key;
+      return results.$key === testname;
     })[0];
+    var maxDate = 0;
     var resultKey = '';
     for (var k in resultsForTest) {
-      if (k !== '$key' && k !== '$exists' && resultsForTest[k].date === test.lastResult.date) {
+      if (k !== '$key' && k !== '$exists' && resultsForTest[k].date > maxDate) {
+        maxDate = resultsForTest[k].date
         resultKey = k;
       }
     }

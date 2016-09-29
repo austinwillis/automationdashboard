@@ -63,10 +63,10 @@ export class TestDetailComponent {
   }
 
   updateResult(result) {
-    this.testsStore.updateResult(this.test.$key, result);
+    this.testsStore.updateResult(this.testname, result);
   }
 
   updateStatus(status) {
-    this.testsStore.updateStatus(this.test.$key, status);
+    this.testsStore.updateStatus(this.testname, status);
   }
 }
