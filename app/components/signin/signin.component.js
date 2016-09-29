@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -9,6 +9,7 @@ import template from './signin.template.html';
   template: template
 })
 export class SignInComponent {
+
   constructor(router: Router, auth: AuthService) {
     this.auth = auth;
     this.router = router;
