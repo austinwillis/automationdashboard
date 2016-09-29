@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "easy-table": "^1.0.0",
+    "firebase": "^3.4.0",
     "google-auth-library": "^0.9.8",
     "googleapis": "^13.0.0"
   }

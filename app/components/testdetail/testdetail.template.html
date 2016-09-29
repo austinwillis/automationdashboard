@@ -1,15 +1,49 @@
-<div class="card card-inverse" [ngClass]="classMap">
-  <div class="card-block">
-    <div class="col-md-3">{{ test['suite'] }}</div>
-    <div class="col-md-9">{{ test['$key'] }}</div>
-    <div class="input-group col-md-2">
-      <select #result (change)="this.updateResult(result.value)" class="search-field form-control">
-        <option [selected]="lastResultValue === 'Pass'" value="Pass">Pass</option>
-        <option [selected]="lastResultValue === 'Flake'" value="Flake">Flake</option>
-        <option [selected]="lastResultValue === 'Fail'" value="Fail">Fail</option>
-        <option [selected]="lastResultValue === 'Bug'" value="Bug">Bug</option>
-        <option [selected]="lastResultValue === 'Skip'" value="Skip">Skip</option>
-      </select>
+<div [class.selected]="test.selected" (click)="selectElement($event)" [ngClass]="classMap">
+  <div class="row">
+    <div class="col-md-2">{{ test.suite }}</div>
+    <div class="col-md-6">{{ test.$key }}</div>
+    <div class="col-md-2">
+      <div class="input-group">
+        <select #memberSelect (change)="this.updateTeamMember(memberSelect.value)" class="search-field form-control">
+          <option>Nobody</option>
+          <option *ngFor="let member of this.testsStore.team"
+            [ngValue]="member.name"
+            [selected]="member.name === test.teamMember">{{ member.name }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-1">
+      <div class="input-group">
+        <select #result [disabled]="this.testsStore.selectedTests.length > 0" (change)="this.updateResult(result.value)" class="search-field form-control">
+          <option [selected]="this.test.lastResult.result === 'PASS'" value="PASS">Pass</option>
+          <option [selected]="this.test.lastResult.result === 'FLAKE'" value="FLAKE">Flake</option>
+          <option [selected]="this.test.lastResult.result === 'FAIL'" value="FAIL">Fail</option>
+          <option [selected]="this.test.lastResult.result === 'BUG'" value="BUG">Bug</option>
+          <option [selected]="this.test.lastResult.result === 'SKIP'" value="SKIP">Skip</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-1">
+      <button (click)="this.toggleInfo()" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
+        More Info
+      </button>
+    </div>
+  </div>
+  <div *ngIf="showInfo">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="input-group">
+          <select #status (change)="this.updateStatus(status.value)" class="search-field form-control">
+            <option [selected]="test.status === 'Consistent'" value="Consistent">Consistent</option>
+            <option [selected]="test.status === 'Quarantine'" value="Quarantine">Quarantine</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <test-results [testname]="this.testname"></test-results>
+      </div>
     </div>
   </div>
 </div>
