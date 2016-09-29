@@ -144,10 +144,10 @@ export class TestsStore {
     this.filterAndSelectTests();
   }
 
-  updateResult(test, result) {
-    this.af.database.object(`/tests/${test['$key']}/lastResult/result`).set(result)
+  updateResult(testname, result) {
+    this.af.database.object(`/tests/${testname}/lastResult/result`).set(result)
     var resultKey = this.getKeyOfNewestResult(test);
-    this.af.database.object(`results/${test['$key']}/${resultKey}/result`).set(result);
+    this.af.database.object(`results/${testname}/${resultKey}/result`).set(result);
   }
 
   getKeyOfNewestResult(test) {
@@ -164,8 +164,8 @@ export class TestsStore {
     return resultKey;
   }
 
-  updateStatus(test, status) {
-    this.af.database.object(`/tests/${test['$key']}/status`).set(status);
+  updateStatus(testname, status) {
+    this.af.database.object(`/tests/${testname}/status`).set(status);
   }
 
   updateTeamMember(test, member) {

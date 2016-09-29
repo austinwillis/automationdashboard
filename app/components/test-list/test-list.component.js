@@ -26,6 +26,7 @@ export class TestListComponent {
   @ViewChild('ResultModal')
   resultModal: ModalComponent;
   visibleTests = [];
+  oldFilteredTests = [];
 
   constructor(route: ActivatedRoute, testsStore: TestsStore) {
     this.testsStore = testsStore;
@@ -34,12 +35,17 @@ export class TestListComponent {
   }
 
   ngOnInit() {
+    this.testsStore.suiteSubject.next('');
+    this.testsStore.resultSubject.next('');
+    this.testsStore.statusSubject.next('');
+    this.testsStore.testSubject.next('');
     this._route.params
       .map(params => params.status)
       .subscribe((status) => {
         this._currentStatus = status;
       });
     this.testsStore.filteredTestsSubject.subscribe(tests => {
+      this.oldFilteredTests = this.filteredTests;
       this.filteredTests = tests;
       if (this.filteredTests != undefined) {
         this.initializeVisibleTests();
@@ -48,10 +54,10 @@ export class TestListComponent {
   }
 
   initializeVisibleTests() {
-    if (this.visibleTests.length === 0) {
-      this.visibleTests = this.filteredTests.slice(0, 30);
-    } else {
+    if (this.filteredTests.map(test => { return test.$key }).sort().join(',') === this.oldFilteredTests.map(test => { return test.$key }).sort().join(',')) {
       this.visibleTests = this.filteredTests.slice(0, this.visibleTests.length);
+    } else {
+      this.visibleTests = this.filteredTests.slice(0, 30);
     }
   }
 
@@ -82,9 +88,9 @@ export class TestListComponent {
 
   onScroll() {
     if (this.visibleTests.length < this.filteredTests.length - 15) {
-      this.visibleTests.push(...this.filteredTests.splice(this.visibleTests.length, this.visibleTests.length + 20));
+      this.visibleTests.push(...this.filteredTests.slice(this.visibleTests.length, this.visibleTests.length + 20));
     } else {
-      this.visibleTests.push(...this.filteredTests.splice(this.visibleTests.lenth, this.filteredTests.length));
+      this.visibleTests.push(...this.filteredTests.slice(this.visibleTests.lenth, this.filteredTests.length));
     }
   }
 }
