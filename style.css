@@ -157,3 +157,12 @@ body {
 .loginBtn--google:focus {
   background: #E74B37;
 }
+
+button.no-style {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+}

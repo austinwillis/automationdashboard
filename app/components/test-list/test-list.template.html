@@ -1,10 +1,5 @@
 <div class="list-controls">
   <div class="row">
-  <div class="btn-group col-md-1">
-    <button (click)="this.testsStore.selectAllSubject.next($event.target.value)" type="button" class="btn btn-secondary">
-      Select All
-    </button>
-  </div>
   <div class="col-md-2">
     <div class="input-group">
       <input (input)="this.testsStore.suiteSubject.next($event.target.value)" [value]="this.testsStore.suiteFilter" class="search-field form-control" type="text" name="fname" placeholder="Search Suites" />
@@ -56,6 +51,11 @@
       <li role="menuitem"><a class="dropdown-item" (click)="this.openStatusModal('Consistent')" href="#">Consistent</a></li>
       <li role="menuitem"><a class="dropdown-item" (click)="this.openStatusModal('Quarantine')" href="#">Quarantine</a></li>
     </ul>
+  </div>
+  <div class="btn-group col-md-1">
+    <button (click)="this.testsStore.selectAllSubject.next($event.target.value)" type="button" class="btn btn-secondary">
+      Select All
+    </button>
   </div>
 </div>
   <div *ngIf="!testsStore.isLoading" class="row">

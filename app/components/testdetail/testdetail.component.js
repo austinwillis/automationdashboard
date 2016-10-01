@@ -22,12 +22,10 @@ export class TestDetailComponent {
   }
 
   selectElement(event) {
-    if (event.ctrlKey) {
-      if (!this.test.selected) {
-        this.testsStore.selectSubject.next(this.test.$key);
-      } else {
-        this.testsStore.unselectSubject.next(this.test.$key);
-      }
+    if (!this.test.selected) {
+      this.testsStore.selectSubject.next(this.test.$key);
+    } else {
+      this.testsStore.unselectSubject.next(this.test.$key);
     }
   }
 
