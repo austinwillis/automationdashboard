@@ -39,6 +39,7 @@ export class TestListComponent {
     this._route.params
       .map(params => params.status)
       .subscribe((status) => {
+        
         this._currentStatus = status;
       });
     this.testsStore.filteredTestsSubject.subscribe(tests => {
