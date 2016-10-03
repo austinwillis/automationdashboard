@@ -77,7 +77,7 @@ export class TestsStore {
   }
 
   getFilteredTests() {
-    return this.filter(this.tests, this.suiteFilter, this.testFilter, this.resultFilter, this.statusFilter);
+    return this.filter(this.tests, this.suiteFilter, this.testFilter, this.resultFilter, this.statusFilter, this.personFilter);
   }
 
   subscribeToFilters() {
@@ -140,7 +140,6 @@ export class TestsStore {
         this.filterAndSelectTests();
       } else {
         this.selectedTests = this.getFilteredTests().map(test => {
-          test.selected = true;
           return test.$key;
         });
         this.selectAll = true;
