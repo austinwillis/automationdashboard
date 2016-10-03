@@ -7,17 +7,17 @@
   </div>
   <div class="col-md-2">
     <div class="input-group">
-      <input (input)="this.testsStore.suiteSubject.next($event.target.value)" [value]="this.testsStore.suiteFilter" class="search-field form-control" type="text" name="fname" placeholder="Search Suites" />
+      <input (input)="this.testsStore.suiteSubject.next($event.target.value)" [value]="this.testsStore.suiteFilter" class="input-sm" type="text" name="fname" placeholder="Search Suites" />
     </div>
   </div>
   <div class="col-md-2">
     <div class="input-group">
-      <input (input)="this.testsStore.testSubject.next($event.target.value)" [value]="this.testsStore.testFilter" class="search-field form-control" type="text" name="lname" placeholder="Search Tests" />
+      <input (input)="this.testsStore.testSubject.next($event.target.value)" [value]="this.testsStore.testFilter" class="input-sm" type="text" name="lname" placeholder="Search Tests" />
     </div>
   </div>
   <div class="col-md-2">
     <div class="input-group">
-      <select #status (change)="this.testsStore.statusSubject.next($event.target.value)" class="search-field form-control">
+      <select #status (change)="this.testsStore.statusSubject.next($event.target.value)" class="input-sm">
         <option [selected]="this.testsStore.statusFilter === ''" value="">All</option>
         <option [selected]="this.testsStore.statusFilter === 'Consistent'" value="Consistent">Consistent</option>
         <option [selected]="this.testsStore.statusFilter === 'Quarantine'" value="Quarantine">Quarantine</option>
@@ -26,7 +26,7 @@
   </div>
   <div class="col-md-1">
     <div class="input-group">
-      <select #result (change)="this.testsStore.resultSubject.next($event.target.value)" class="search-field form-control">
+      <select #result (change)="this.testsStore.resultSubject.next($event.target.value)" class="input-sm">
         <option [selected]="this.testsStore.resultFilter === ''" value="">All</option>
         <option [selected]="this.testsStore.resultFilter === 'PASS'" value="PASS">Pass</option>
         <option [selected]="this.testsStore.resultFilter === 'FLAKE'" value="FLAKE">Flake</option>
