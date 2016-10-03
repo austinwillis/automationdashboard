@@ -35,8 +35,8 @@ body {
 }
 
 .bs-callout {
-    padding: 20px;
-    margin: 20px 0;
+    padding: 5px;
+    margin: 5px 0;
     border: 1px solid #eee;
     border-left-width: 12px;
     border-radius: 3px;
@@ -156,4 +156,13 @@ body {
 .loginBtn--google:hover,
 .loginBtn--google:focus {
   background: #E74B37;
+}
+
+button.no-style {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: 0;
+    background: transparent;
 }

@@ -1,4 +1,4 @@
-<div [class.selected]="test.selected" (click)="selectElement($event)" [ngClass]="classMap">
+<div [class.selected]="test.selected" [ngClass]="classMap" (click)="selectElementCtrlClick($event)">
   <div class="row">
     <div class="col-md-2">{{ test.suite }}</div>
     <div class="col-md-6">{{ test.$key }}</div>
@@ -12,22 +12,25 @@
         </select>
       </div>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-2">
       <div class="input-group">
         <select #result [disabled]="this.testsStore.selectedTests.length > 0" (change)="this.updateResult(result.value)" class="search-field form-control">
-          <option [selected]="this.test.lastResult.result === 'PASS'" value="PASS">Pass</option>
+          <option [selected]="this.test.lastResult.result === 'PASSED'" value="PASSED">Passed</option>
           <option [selected]="this.test.lastResult.result === 'FLAKE'" value="FLAKE">Flake</option>
-          <option [selected]="this.test.lastResult.result === 'FAIL'" value="FAIL">Fail</option>
+          <option [selected]="this.test.lastResult.result === 'FAILED'" value="FAILED">Failed</option>
           <option [selected]="this.test.lastResult.result === 'BUG'" value="BUG">Bug</option>
-          <option [selected]="this.test.lastResult.result === 'SKIP'" value="SKIP">Skip</option>
+          <option [selected]="this.test.lastResult.result === 'SKIPPED'" value="SKIPPED">Skipped</option>
         </select>
+        <span class="input-group-addon">
+          <input type="checkbox" (change)="selectElement()" [(ngModel)]="test.selected" aria-label="Select Test">
+        </span>
       </div>
     </div>
-    <div class="col-md-1">
-      <button (click)="this.toggleInfo()" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">
-        More Info
-      </button>
-    </div>
+  </div>
+  <div class="row">
+    <button (click)="this.toggleInfo()" type="button" class="no-style center-block md-col-1 offset-md-6" aria-label="Center">
+      <span class="glyphicon" [class.glyphicon-chevron-down]="!this.showInfo" [class.glyphicon-chevron-up]="this.showInfo" aria-hidden="true"></span>
+    </button>
   </div>
   <div *ngIf="showInfo">
     <div class="row">

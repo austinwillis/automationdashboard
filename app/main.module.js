@@ -20,7 +20,8 @@ import {
   HeaderComponent,
   SignInComponent,
   ResultsComponent,
-  SummaryComponent
+  SummaryComponent,
+  SuitesComponent
 } from './components';
 
 import {
@@ -28,6 +29,7 @@ import {
 } from './guards';
 import { TestsStore } from './services/tests.service';
 import { AuthService } from './services/auth.service';
+import { SuitesService } from './services/suites.service';
 import { FilterPipe } from './pipes';
 import { OrderByPipe } from './pipes';
 import { routes } from './components/test.routes';
@@ -37,6 +39,7 @@ import { routes } from './components/test.routes';
   declarations: [
     TestComponent,
     TestListComponent,
+    SuitesComponent,
     TestDetailComponent,
     HeaderComponent,
     FilterPipe,
@@ -62,6 +65,7 @@ import { routes } from './components/test.routes';
     TestsStore,
     AuthGuard,
     AuthService,
+    SuitesService,
     FirebaseAuth,
     AngularFire
   ]
