@@ -13,6 +13,7 @@ export class TestsStore {
 
   isLoading = true;
   loadedResults = false;
+  assignedToMe = false;
   loadingResults = new BehaviorSubject();
   selectedTests = [];
   tests = [];
@@ -25,18 +26,22 @@ export class TestsStore {
   testSubject = new BehaviorSubject();
   resultSubject = new BehaviorSubject();
   statusSubject = new BehaviorSubject();
+  personSubject = new Subject();
 
   unselectSubject = new BehaviorSubject();
   selectSubject = new BehaviorSubject();
 
   suiteFilter = '';
+  personFilter = '';
   testFilter = '';
   resultFilter = '';
   statusFilter = '';
 
   constructor(af: AngularFire, auth: AuthService) {
     this.af = af;
-    this.auth = auth;
+    auth.auth$.subscribe(auth => {
+      this.auth = auth;
+    })
     this.filter = new FilterPipe().transform;
     this.suiteSubject.next('');
     this.testSubject.next('');
@@ -61,7 +66,7 @@ export class TestsStore {
   }
 
   filterAndSelectTests() {
-    this.filteredTestsSubject.next(this.filter(this.tests, this.suiteFilter, this.testFilter, this.resultFilter, this.statusFilter).map(test => {
+    this.filteredTestsSubject.next(this.filter(this.tests, this.suiteFilter, this.testFilter, this.resultFilter, this.statusFilter, this.personFilter).map(test => {
       if (this.selectedTests.indexOf(test.$key) > -1) {
         test.selected = true;
       } else {
@@ -100,6 +105,20 @@ export class TestsStore {
       this.selectedTests = [];
       this.filterAndSelectTests();
     });
+    this.personSubject.subscribe(value => {
+      this.toggleAssignedToMe();
+      this.filterAndSelectTests();
+    })
+  }
+
+  toggleAssignedToMe() {
+    if (this.assignedToMe) {
+      this.personFilter = '';
+      this.assignedToMe = false;
+    } else {
+      this.personFilter = this.auth.google.displayName;
+      this.assignedToMe = true;
+    }
   }
 
   subscribeToSelect() {

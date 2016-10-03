@@ -10,7 +10,7 @@
       <input (input)="this.testsStore.testSubject.next($event.target.value)" [value]="this.testsStore.testFilter" class="search-field form-control" type="text" name="lname" placeholder="Search Tests" />
     </div>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-1">
     <div class="input-group">
       <select #status (change)="this.testsStore.statusSubject.next($event.target.value)" class="search-field form-control">
         <option [selected]="this.testsStore.statusFilter === ''" value="">All</option>
@@ -30,6 +30,10 @@
         <option [selected]="this.testsStore.resultFilter === 'SKIPPED'" value="SKIPPED">Skip</option>
       </select>
     </div>
+  </div>
+  <div class="col-md-1">
+    <button [class.active]="this.testsStore.assignedToMe" (click)="this.testsStore.personSubject.next($event)"
+    class="btn btn-secondary" type="button">My Tests</button>
   </div>
   <div class="btn-group col-md-2" dropdown [(isOpen)]="status.isResultOpen" >
     <button [disabled]="this.testsStore.selectedTests.length === 0" id="result-button" type="button" class="btn btn-secondary" dropdownToggle>
