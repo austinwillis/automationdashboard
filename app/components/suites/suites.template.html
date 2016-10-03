@@ -1,3 +1,56 @@
-<div *ngFor="let suite of suites">
-  {{ suite | json }}
+<div *ngIf="this.loading" class="row">
+  <div class="col-md-2 offset-md-5 loader"></div>
 </div>
+<div *ngIf="!this.loading" class="card card-block">
+  <table class="table table-striped col-md-12">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Suite</th>
+        <th>Jenkins URL</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let suite of suites">
+        <td class="col-md-1">{{ suite.$key }}</td>
+        <td class="col-md-2">
+          <div class="input-group">
+            <input #suiteName (keyup.enter)="this.updateSuiteName(suite.$key, suiteName.value)" [value]="suite.suite" type="text" class="form-control" placeholder="Suite Name">
+            <span class="input-group-btn">
+              <button (click)="this.updateSuiteName(suite.$key, suiteName.value)" class="btn btn-secondary" type="button">Save</button>
+            </span>
+          </div>
+        </td>
+        <td class="col-md-8">
+          <div class="input-group">
+            <input #suiteURL (keyup.enter)="this.updateSuiteURL(suite.$key, suiteURL.value)" [value]="suite.url" type="text" class="form-control" placeholder="Suite URL">
+            <span class="input-group-btn">
+              <button (click)="this.updateSuiteURL(suite.$key, suiteURL.value)" class="btn btn-secondary" type="button">Save</button>
+            </span>
+          </div>
+        </td>
+        <td>
+          <button (click)="removeSuite(suite.$key, suite.suite)" type="button" class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <button (click)="addNewSuite()" type="button" class="btn btn-primary">Add New Suite</button>
+        </td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<modal #ConfirmDeleteModal>
+  <modal-header>
+      <h4 class="modal-title">Are you sure you want to delete the {{ this.suiteToRemoveName }} suite?</h4>
+  </modal-header>
+  <modal-footer>
+      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="this.cancel()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="this.confirmRemoveSuite()">Confirm</button>
+  </modal-footer>
+</modal>

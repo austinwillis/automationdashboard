@@ -29,6 +29,16 @@ export class TestDetailComponent {
     }
   }
 
+  selectElementCtrlClick(event) {
+    if (event.ctrlKey) {
+      if (!this.test.selected) {
+        this.testsStore.selectSubject.next(this.test.$key);
+      } else {
+        this.testsStore.unselectSubject.next(this.test.$key);
+      }
+    }
+  }
+
   toggleInfo() {
     this.showInfo = !this.showInfo;
   }
@@ -47,11 +57,11 @@ export class TestDetailComponent {
     };
 
     switch(result) {
-      case 'PASS':
+      case 'PASSED':
         return Object.assign(classMap, { 'bs-callout bs-callout-success': true });
-      case 'FAIL':
+      case 'FAILED':
         return Object.assign(classMap, { 'bs-callout bs-callout-danger': true });
-      case 'SKIP':
+      case 'SKIPPED':
         return Object.assign(classMap, { 'bs-callout bs-callout-skip': true });
       case 'FLAKE':
         return Object.assign(classMap, { 'bs-callout bs-callout-info': true });

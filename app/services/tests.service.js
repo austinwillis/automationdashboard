@@ -13,7 +13,7 @@ export class TestsStore {
 
   isLoading = true;
   loadedResults = false;
-  loadingResults = new Subject();
+  loadingResults = new BehaviorSubject();
   selectedTests = [];
   tests = [];
 
@@ -38,6 +38,10 @@ export class TestsStore {
     this.af = af;
     this.auth = auth;
     this.filter = new FilterPipe().transform;
+    this.suiteSubject.next('');
+    this.testSubject.next('');
+    this.resultSubject.next('');
+    this.statusSubject.next('');
     var self = this;
     af.database.list('/tests').subscribe(tests => {
       this.tests = tests;
@@ -52,12 +56,8 @@ export class TestsStore {
     af.database.list('/results').subscribe(results => {
       this.results = results;
       this.loadedResults = true;
-      this.loadingResults.next();
+      this.loadingResults.next('true');
     });
-    this.suiteSubject.next('');
-    this.testSubject.next('');
-    this.resultSubject.next('');
-    this.statusSubject.next('');
   }
 
   filterAndSelectTests() {

@@ -128,7 +128,7 @@ function generateReport(auth) {
       sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: '1NGaOYZRjhJLl3-2KAAqCKaEiJHmRcm4wa5oXC1jMeqk',
-        range: 'AllResults!G9:AE1942',
+        range: 'AllResults!G9:AE1949',
       }, function(err, response) {
         results = response.values;
         callback(null, 1);
@@ -138,7 +138,7 @@ function generateReport(auth) {
       sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: '1NGaOYZRjhJLl3-2KAAqCKaEiJHmRcm4wa5oXC1jMeqk',
-        range: 'AllResults!D9:1942',
+        range: 'AllResults!D9:1949',
       }, function(err, response) {
         suites = response.values;
         callback(null, 2);
@@ -158,7 +158,7 @@ function generateReport(auth) {
       sheets.spreadsheets.values.get({
         auth: auth,
         spreadsheetId: '1NGaOYZRjhJLl3-2KAAqCKaEiJHmRcm4wa5oXC1jMeqk',
-        range: 'Quarantine!E9:E59',
+        range: 'Quarantine!E9:E66',
       }, function(err, response) {
         tests = response.values;
         callback(null, 3);
@@ -171,34 +171,40 @@ function generateReport(auth) {
         var newDate = myDate[0]+","+myDate[1]+","+myDate[2];
         timestamps.push(new Date(newDate).getTime());
       }
-      // firebase.database().ref('tests/').once('value', function(snapshot) {
-      //   var keys = [];
-      //   snapshot.forEach(function(childSnapshot) {
-      //     keys.push(childSnapshot.key);
-      //   });
-      //   testNames.forEach(function(test){
-      //     if (keys.indexOf(test) === -1) {
-      //       console.log(test);
-      //     }
-      //   });
-      //   console.log(keys.length);
-      // })
-      for (let v = 0; v < tests.length; v++) {
-        var testname = tests[v][0].toString().replace('.', '_');
-        firebase.database().ref(`/tests/${testname}/status`).set('Quarantine');
-        // firebase.database().ref(`/tests/${testname}/suite`).set(suites[v][0]);
-        // firebase.database().ref(`/tests/${testname}/teamMember`).set('');
-        // for (let i = 0; i < timestamps.length; i++) {
-        //   if (results[v][i] === 'PASS' || results[v][i] === 'FLAKE' || results[v][i] === 'FAIL' || results[v][i] === 'SKIP' || results[v][i] === 'BUG') {
-        //     var dateObject = {};
-        //     dateObject['date'] = timestamps[timestamps.length-1-i];
-        //     dateObject['result'] = results[v][i];
-        //     dateObject['teamMember'] = '';
-        //     firebase.database().ref(`/results/${testname}/`).push(dateObject);
-        //     firebase.database().ref(`/tests/${testname}/lastResult`).set(dateObject);
-        //   }
-        // }
+
+      var testnames = tests.map(test => {
+        return test[0];
+      })
+      testnames.sort();
+      for (let i = 0; i < testnames.length-1; i++) {
+        if (testnames[i] === testnames[i+1]) {
+          console.log(testnames[i]);
+        }
       }
+      // for (let v = 0; v < tests.length; v++) {
+      //   var testname = tests[v][0].toString().replace('.', '_');
+      //   firebase.database().ref(`/tests/${testname}/status`).set('Consistent');
+      //   firebase.database().ref(`/tests/${testname}/suite`).set(suites[v][0]);
+      //   firebase.database().ref(`/tests/${testname}/teamMember`).set('');
+      //   for (let i = timestamps.length-1; i > -1; i--) {
+      //     if (results[v][i] === 'PASS' || results[v][i] === 'FLAKE' || results[v][i] === 'FAIL' || results[v][i] === 'SKIP' || results[v][i] === 'BUG') {
+      //       var dateObject = {};
+      //       if (results[v][i] === 'PASS') {
+      //         dateObject['result'] = 'PASSED';
+      //       } else if (results[v][i] === 'FAIL') {
+      //         dateObject['result'] = 'FAILED';
+      //       } else if (results[v][i] === 'SKIP') {
+      //         dateObject['result'] = 'SKIPPED';
+      //       } else {
+      //         dateObject['result'] = results[v][i];
+      //       }
+      //       dateObject['date'] = timestamps[i];
+      //       dateObject['teamMember'] = '';
+      //       firebase.database().ref(`/results/${testname}/`).push(dateObject);
+      //       firebase.database().ref(`/tests/${testname}/lastResult`).set(dateObject);
+      //     }
+      //   }
+      // }
     }]
   });
 }

@@ -23,11 +23,11 @@
     <div class="input-group">
       <select #result (change)="this.testsStore.resultSubject.next($event.target.value)" class="search-field form-control">
         <option [selected]="this.testsStore.resultFilter === ''" value="">All</option>
-        <option [selected]="this.testsStore.resultFilter === 'PASS'" value="PASS">Pass</option>
+        <option [selected]="this.testsStore.resultFilter === 'PASSED'" value="PASSED">Pass</option>
         <option [selected]="this.testsStore.resultFilter === 'FLAKE'" value="FLAKE">Flake</option>
-        <option [selected]="this.testsStore.resultFilter === 'FAIL'" value="FAIL">Fail</option>
+        <option [selected]="this.testsStore.resultFilter === 'FAILED'" value="FAILED">Fail</option>
         <option [selected]="this.testsStore.resultFilter === 'BUG'" value="BUG">Bug</option>
-        <option [selected]="this.testsStore.resultFilter === 'SKIP'" value="SKIP">Skip</option>
+        <option [selected]="this.testsStore.resultFilter === 'SKIPPED'" value="SKIPPED">Skip</option>
       </select>
     </div>
   </div>
@@ -36,10 +36,10 @@
       Mass Change Result
     </button>
     <ul dropdownMenu role="menu" aria-labelledby="result-button">
-      <li role="menuitem"><a class="dropdown-item" (click)="this.openResultModal('PASS')" href="#">Pass</a></li>
-      <li role="menuitem"><a class="dropdown-item" (click)="this.openResultModal('FAIL')" href="#">Fail</a></li>
+      <li role="menuitem"><a class="dropdown-item" (click)="this.openResultModal('PASSED')" href="#">Passed</a></li>
+      <li role="menuitem"><a class="dropdown-item" (click)="this.openResultModal('FAILED')" href="#">Failed</a></li>
       <li role="menuitem"><a class="dropdown-item" (click)="this.openResultModal('FLAKE')" href="#">Flake</a></li>
-      <li role="menuitem"><a class="dropdown-item" (click)="this.openResultModal('SKIP')" href="#">Skip</a></li>
+      <li role="menuitem"><a class="dropdown-item" (click)="this.openResultModal('SKIPPED')" href="#">Skipped</a></li>
       <li role="menuitem"><a class="dropdown-item" (click)="this.openResultModal('BUG')" href="#">Bug</a></li>
     </ul>
   </div>
