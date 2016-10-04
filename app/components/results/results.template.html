@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let result of results | orderBy:'-date'">
-      <td>{{ result.date | date }}</td>
+      <td>{{ this.millisToUTCDate(result.date) | date : 'MM/dd/yyyy' : 'UTC' }}</td>
       <td>
         <div class="input-group">
           <input #comment (keyup.enter)="this.commentSubject.next([testname, result.$key, comment.value])" [value]="result.comment" type="text" class="form-control" placeholder="Comment">
