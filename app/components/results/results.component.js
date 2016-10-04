@@ -32,4 +32,13 @@ export class ResultsComponent {
     console.log(comment);
     this.testsStore.updateCommentByResultKey(testname, key, comment);
   }
+
+  toUTCDate(date) {
+    var _utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),  date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    return _utc;
+  };
+
+  millisToUTCDate(millis) {
+    return this.toUTCDate(new Date(millis));
+  };
 }
