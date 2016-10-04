@@ -31,9 +31,14 @@
       </select>
     </div>
   </div>
-  <div class="col-md-1">
+  <div *ngIf="this.testsStore.selectedTests.length === 0" class="col-md-1">
     <button [class.active]="this.testsStore.assignedToMe" (click)="this.testsStore.personSubject.next($event)"
     class="btn btn-secondary" type="button">My Tests</button>
+  </div>
+  <div *ngIf="this.testsStore.selectedTests.length > 0" class="col-md-1">
+    <button class="btn btn-secondary" type="button" (click)="this.assignSelectedToMe()">
+      Assign To Me
+    </button>
   </div>
   <div class="btn-group col-md-2" dropdown [(isOpen)]="status.isResultOpen" >
     <button [disabled]="this.testsStore.selectedTests.length === 0" id="result-button" type="button" class="btn btn-secondary" dropdownToggle>
@@ -93,5 +98,15 @@
   <modal-footer>
       <button type="button" class="btn btn-default" data-dismiss="modal" (click)="this.cancel()">Cancel</button>
       <button type="button" class="btn btn-primary" (click)="this.confirmMassChangeStatus()">Confirm</button>
+  </modal-footer>
+</modal>
+
+<modal #AssignModal>
+  <modal-header>
+      <h4 class="modal-title">Are you sure you want to assign {{ this.testsStore.selectedTests.length }} tests to yourself?</h4>
+  </modal-header>
+  <modal-footer>
+      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="this.cancel()">Cancel</button>
+      <button type="button" class="btn btn-primary" (click)="this.confirmAssignToMe()">Confirm</button>
   </modal-footer>
 </modal>

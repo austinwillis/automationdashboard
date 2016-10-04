@@ -121,6 +121,22 @@ export class TestsStore {
     }
   }
 
+  assignSelectedToMe() {
+    var self = this;
+    this.selectedTests.forEach(function(test) {
+      self.assignToMe(test);
+    });
+    this.selectedTests = [];
+    this.selectAll = false;
+    this.filterAndSelectTests();
+  }
+
+  assignToMe(test) {
+    this.af.database.object(`/tests/${test}/teamMember`).set(this.auth.google.displayName);
+    var resultKey = this.getKeyOfNewestResult(test);
+    this.af.database.object(`results/${test}/${resultKey}/teamMember`).set(this.auth.google.displayName);
+  }
+
   subscribeToSelect() {
     this.selectSubject.subscribe(test => {
       this.selectedTests.push(test);
