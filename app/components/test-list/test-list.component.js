@@ -25,6 +25,8 @@ export class TestListComponent {
   statusModal: ModalComponent;
   @ViewChild('ResultModal')
   resultModal: ModalComponent;
+  @ViewChild('AssignModal')
+  assignModal: ModalComponent;
   visibleTests = [];
   oldFilteredTests = [];
   filteredTests = [];
@@ -71,6 +73,7 @@ export class TestListComponent {
   cancel() {
     this.statusModal.close();
     this.resultModal.close();
+    this.assignModal.close();
   }
 
   openResultModal(result) {
@@ -81,6 +84,15 @@ export class TestListComponent {
   openStatusModal(status) {
     this.newMassStatus = status;
     this.statusModal.open();
+  }
+
+  assignSelectedToMe() {
+    this.assignModal.open();
+  }
+
+  confirmAssignToMe() {
+    this.testsStore.assignSelectedToMe();
+    this.assignModal.close();
   }
 
   onScroll() {
