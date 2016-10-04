@@ -85,8 +85,10 @@ export class SummaryComponent {
 
   ngOnInit() {
     if (!this.testsStore.loadedResults) {
-      this.testsStore.loadingResults.subscribe(results => {
-        this.createStats();
+      this.testsStore.loadingResults.subscribe(result => {
+        if (result === 'true') {
+          this.createStats();
+        }
       });
     } else {
       this.createStats();
@@ -110,11 +112,12 @@ export class SummaryComponent {
 
   createStats() {
     this.totalTests = this.testsStore.results.length;
-    this.pass = this.options.series[0].data[0].y = this.createStatsByStatus('PASS');
-    this.fail = this.options.series[0].data[1].y = this.createStatsByStatus('FAIL');
+    this.pass = this.options.series[0].data[0].y = this.createStatsByStatus('PASSED');
+    this.fail = this.options.series[0].data[1].y = this.createStatsByStatus('FAILED');
     this.flake = this.options.series[0].data[2].y = this.createStatsByStatus('FLAKE');
-    this.skip = this.options.series[0].data[3].y = this.createStatsByStatus('SKIP');
+    this.skip = this.options.series[0].data[3].y = this.createStatsByStatus('SKIPPED');
     this.bug = this.options.series[0].data[4].y = this.createStatsByStatus('BUG');
     this.saveInstance(this.chart);
+    console.log(this.pass);
   }
 }
