@@ -7,6 +7,7 @@ import { DROPDOWN_DIRECTIVES } from 'ng2-dropdown';
 import { TestDetailComponent } from '../../components';
 import { HeaderComponent } from '../../components';
 import { TestsStore } from '../../services/tests.service'
+import { OrderByPipe } from '../../pipes/orderBy/orderBy.pipe';
 
 import template from './test-list.template.html';
 
@@ -46,10 +47,15 @@ export class TestListComponent {
     this.testsStore.filteredTestsSubject.subscribe(tests => {
       this.oldFilteredTests = this.filteredTests;
       this.filteredTests = tests;
+      this.sortFilteredTests();
       if (this.filteredTests != undefined) {
         this.initializeVisibleTests();
       }
     });
+  }
+
+  sortFilteredTests() {
+    this.filteredTests.sort(this.dynamicSort('suite'));
   }
 
   initializeVisibleTests() {
@@ -102,4 +108,16 @@ export class TestListComponent {
       this.visibleTests = this.filteredTests;
     }
   }
+
+  dynamicSort(property) {
+     var sortOrder = 1;
+     if(property[0] === "-") {
+         sortOrder = -1;
+         property = property.substr(1);
+     }
+     return function (a,b) {
+         var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+         return result * sortOrder;
+     }
+   }
 }

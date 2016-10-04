@@ -5,7 +5,19 @@ import { Pipe, PipeTransform } from "@angular/core";
 })
 export class OrderByPipe{
 
- transform(array){
-   return array.sort(function(a,b) {return (a.date < b.date) ? 1 : ((b.date < a.date) ? -1 : 0);} );
+ transform(array, value){
+   return array.sort(this.dynamicSort(value));
  }
+
+ dynamicSort(property) {
+    var sortOrder = 1;
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+    return function (a,b) {
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+    }
+  }
 }

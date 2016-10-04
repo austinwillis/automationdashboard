@@ -76,7 +76,7 @@
   <div class="col-md-2 offset-md-5 loader"></div>
 </div>
 <div *ngIf="!testsStore.isLoading" class="list-content" infinite-scroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="0" (scrolled)="onScroll()">
-  <div *ngFor="let test of visibleTests">
+  <div *ngFor="let test of visibleTests | orderBy:'suite'">
     <test-detail [test]="test"></test-detail>
   </div>
 </div>

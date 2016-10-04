@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let result of results | orderBy">
+    <tr *ngFor="let result of results | orderBy:'-date'">
       <td>{{ result.date | date }}</td>
       <td>
         <div class="input-group">
