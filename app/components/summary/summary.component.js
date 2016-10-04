@@ -38,7 +38,7 @@ export class SummaryComponent {
             }
         },
         series: [{
-            name: 'Brands',
+            name: 'Results',
             colorByPoint: true,
             data: [
               {
