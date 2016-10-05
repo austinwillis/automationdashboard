@@ -67,6 +67,10 @@ body {
 .bs-callout-skip {
     border-left-color: #f1ed0a;
 }
+.card-skip {
+  background-color: #f1ed0a;
+  border-color:  #f1ed0a;
+}
 .bs-callout-primary h4 {
     color: #428bca;
 }
