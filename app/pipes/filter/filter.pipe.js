@@ -7,6 +7,10 @@ export class FilterPipe implements PipeTransform {
   transform(value, suite, test, result, status, teamMember) {
     if (value !== undefined && Array.isArray(value)) {
       return value.filter((item) => {
+        if (item.status === undefined || item.lastResult === undefined || item.teamMember === undefined) {
+          console.error('Test was missing a value: ' + item);
+          return item;
+        }
         return item.suite.toLowerCase().includes(suite.toLowerCase())
        && item.$key.toLowerCase().includes(test.toLowerCase())
        && item.status.includes(status)
