@@ -16,7 +16,7 @@ var getCount = function(array, comparitor) {
   return array.filter(function(item) {
     return item === comparitor;
   });
-}
+};
 
 firebase.initializeApp({
   serviceAccount: "./resources/serviceAccountCreds.json",
@@ -54,7 +54,7 @@ rootRef.once("value").then(function (data) {
   reportData.push({'currentName':'Skip','currentCount':getCount(currentDay, "SKIPPED").length,'previousCount':getCount(previousDay,"SKIPPED").length,'delta':(getCount(currentDay, "SKIPPED").length-getCount(previousDay,"SKIPPED").length)});
   reportData.push({'currentName':'Bug','currentCount':getCount(currentDay, "BUG").length,'previousCount':getCount(previousDay,"BUG").length,'delta':(getCount(currentDay, "BUG").length-getCount(previousDay,"BUG").length)});
 
-  var table = new Table;
+  var table = new Table();
 
   reportData.forEach(function (data) {
     table.cell('Result', data.currentName, Table.padLeft);
@@ -84,11 +84,11 @@ rootRef.once("value").then(function (data) {
   console.log(slack);
 
   slack.api("users.list", function(err, response) {
-  console.log(response);
+    console.log(response);
   });
 
   slack.api("chat.postMessage", {
-    text:'*Daily Regression Report* \n' + '```' + table.toString() + '```'  ``,
+    text:'*Daily Regression Report* \n' + '```' + table.toString() + '```',
     channel: 'the-automan-empire',
     username: 'autobot'
   }, function(err, response) {

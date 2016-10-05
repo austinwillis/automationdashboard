@@ -1,28 +1,10 @@
 var rp = require('request-promise');
 var firebase = require('firebase');
 
-var firebaseConfig = {
-  apiKey: 'AIzaSyDC0gbiRrm9YXbG5No8-DdB2xAH6BUqXK4',
-  authDomain: 'automato-9b898.firebaseapp.com',
-  databaseURL: 'https://automato-9b898.firebaseio.com',
-  storageBucket: 'automato-9b898.appspot.com',
-  messagingSenderId: '707178478603'
-};
-
 firebase.initializeApp({
   serviceAccount: "./resources/serviceAccountCreds.json",
   databaseURL: 'https://automato-9b898.firebaseio.com'
 });
-//
-// var config = {
-//   apiKey: "AIzaSyCXhNpyDZ0XEbtySTgXg6fK-VFsYGk75eE",
-//   authDomain: "automationdashboard-f39b7.firebaseapp.com",
-//   databaseURL: "https://automationdashboard-f39b7.firebaseio.com",
-//   storageBucket: "automationdashboard-f39b7.appspot.com",
-//   messagingSenderId: "528345561369"
-// };
-
-firebase.initializeApp(config);
 
 var rootRef = firebase.database().ref('suites');
 
@@ -69,6 +51,14 @@ rootRef.once("value")
       var results = responses.reduce(function(result, data) {
         return result.concat(getResult(data));
       },[]);
+      var resultsWithoutDuplicates = [];
+      for (let i = 0; i < results.length - 1; i++) {
+        if (results[i].testName !== results[i+1].testName) {
+          resultsWithoutDuplicates.push(results[i]);
+        }
+      }
+      resultsWithoutDuplicates.push(results[results.length-1]);
+
       results.forEach(function(result) {
         var testName = result.testName.replace(".","_");
         var dateObject = {};
