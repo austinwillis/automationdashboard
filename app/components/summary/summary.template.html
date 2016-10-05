@@ -13,35 +13,35 @@
     <div class="card card-inverse card-success text-xs-center">
       <div class="card-block">
         <blockquote class="card-blockquote">
-          <p>Pass: {{ this.pass }} ({{ this.pass / (this.pass + this.flake + this.bug + this.fail + this.skip) | percent }}%)</p>
+          <p>Pass: {{ this.pass }} ({{ this.pass / (this.pass + this.flake + this.bug + this.fail + this.skip) | percent }})</p>
         </blockquote>
       </div>
     </div>
     <div class="card card-inverse card-info text-xs-center">
       <div class="card-block">
         <blockquote class="card-blockquote">
-          <p>Flake: {{ this.flake }}  ({{ (this.flake / (this.pass + this.flake + this.bug + this.fail + this.skip)) | percent }}%)</p>
+          <p>Flake: {{ this.flake }}  ({{ (this.flake / (this.pass + this.flake + this.bug + this.fail + this.skip)) | percent }})</p>
         </blockquote>
       </div>
     </div>
     <div class="card card-inverse card-warning text-xs-center">
       <div class="card-block">
         <blockquote class="card-blockquote">
-          <p>Bug: {{ this.bug }}  ({{ (this.bug / (this.pass + this.flake + this.bug + this.fail + this.skip)) | percent }}%)</p>
+          <p>Bug: {{ this.bug }}  ({{ (this.bug / (this.pass + this.flake + this.bug + this.fail + this.skip)) | percent }})</p>
         </blockquote>
       </div>
     </div>
     <div class="card card-inverse card-skip text-xs-center">
       <div class="card-block">
         <blockquote class="card-blockquote">
-          <p>Skip: {{ this.skip }}  ({{ (this.skip / (this.pass + this.flake + this.bug + this.fail + this.skip)) | percent }}%)</p>
+          <p>Skip: {{ this.skip }}  ({{ (this.skip / (this.pass + this.flake + this.bug + this.fail + this.skip)) | percent }})</p>
         </blockquote>
       </div>
     </div>
     <div class="card card-inverse card-danger text-xs-center">
       <div class="card-block">
         <blockquote class="card-blockquote">
-          <p>Fail: {{ this.fail }}  ({{ (this.fail / (this.pass + this.flake + this.bug + this.fail + this.skip)) | percent }}%)</p>
+          <p>Fail: {{ this.fail }}  ({{ (this.fail / (this.pass + this.flake + this.bug + this.fail + this.skip)) | percent }})</p>
         </blockquote>
       </div>
     </div>
