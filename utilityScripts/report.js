@@ -2,6 +2,7 @@ var firebase = require("firebase");
 var Table = require('easy-table');
 var Slack = require('slack-node');
 
+var creds = require('./resources/slackCreds.json');
 
 var firebaseConfig = {
   apiKey: 'AIzaSyDC0gbiRrm9YXbG5No8-DdB2xAH6BUqXK4',
@@ -78,7 +79,7 @@ rootRef.once("value").then(function (data) {
     init: 0
   });
 
-  var slack = new Slack("xoxb-79387151686-zC7DmHbTViiaPjwjlvajpjRF");
+  var slack = new Slack(creds.key);
 
   console.log(slack);
 
