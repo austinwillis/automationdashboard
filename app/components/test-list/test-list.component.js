@@ -28,6 +28,9 @@ export class TestListComponent {
   resultModal: ModalComponent;
   @ViewChild('AssignModal')
   assignModal: ModalComponent;
+  @ViewChild('XMLModal')
+  xmlModal: ModalComponent;
+  xmlOutput = "";
   visibleTests = [];
   oldFilteredTests = [];
   filteredTests = [];
@@ -76,7 +79,14 @@ export class TestListComponent {
     this.statusModal.close();
   }
 
+  createTestRunXML() {
+    this.xmlOutput = this.testsStore.createTestRunXML();
+    console.log(this.xmlOutput);
+    this.xmlModal.open();
+  }
+
   cancel() {
+    this.xmlModal.close();
     this.statusModal.close();
     this.resultModal.close();
     this.assignModal.close();
