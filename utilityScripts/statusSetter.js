@@ -35,8 +35,8 @@ rootRef.once("value").then(function(snapshot) {
       result.push(data[k]);
     }
     result.sort(function(a, b) {
-    let aDate = new Date(a.date);
-    let bDate = new Date(b.date);
+    var aDate = new Date(a.date);
+    var bDate = new Date(b.date);
     return aDate>bDate ? -1 : aDate<bDate ? 1 : 0;
     });
 

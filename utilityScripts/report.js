@@ -36,8 +36,8 @@ rootRef.once("value").then(function (data) {
       result.push(value[k]);
     }
     result.sort(function(a, b) {
-      let aDate = new Date(a.date);
-      let bDate = new Date(b.date);
+      var aDate = new Date(a.date);
+      var bDate = new Date(b.date);
       return aDate>bDate ? -1 : aDate<bDate ? 1 : 0;
     });
     if(result.length > 1) {
