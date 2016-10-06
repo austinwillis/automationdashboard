@@ -69,7 +69,8 @@
 </div>
   <div *ngIf="!testsStore.isLoading" class="row">
     <div class="col-md-2">Showing {{ this.visibleTests.length }} tests of {{ this.filteredTests.length }}</div>
-    <div class="offset-md-8 col-md-2">{{ this.testsStore.selectedTests.length }} tests Selected</div>
+    <div class="offset-md-7 col-md-2">{{ this.testsStore.selectedTests.length }} tests Selected</div>
+    <div class="col-md-1"><a href="#" (click)="this.testsStore.clearFilters()">Clear Filters</a></div>
   </div>
 </div>
 <div *ngIf="testsStore.isLoading" class="row">
