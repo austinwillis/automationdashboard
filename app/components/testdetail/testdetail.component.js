@@ -40,7 +40,11 @@ export class TestDetailComponent {
   }
 
   toggleInfo() {
-    this.showInfo = !this.showInfo;
+    if (!this.test.open) {
+      this.testsStore.openTestSubject.next(this.test.$key);
+    } else {
+      this.testsStore.closeTestSubject.next(this.test.$key);
+    }
   }
 
   ngOnInit() {

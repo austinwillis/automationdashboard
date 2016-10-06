@@ -16,7 +16,11 @@ export class TestsStore {
   assignedToMe = false;
   loadingResults = new BehaviorSubject();
   selectedTests = [];
+  openTests = [];
   tests = [];
+
+  openTestSubject = new Subject();
+  closeTestSubject = new Subject();
 
   filteredTestsSubject = new BehaviorSubject();
 
@@ -55,6 +59,7 @@ export class TestsStore {
     });
     this.subscribeToFilters();
     this.subscribeToSelect();
+    this.subscribeToOpen();
     af.database.list('/team').subscribe(team => {
       this.team = team;
     })
@@ -71,6 +76,11 @@ export class TestsStore {
         test.selected = true;
       } else {
         test.selected = false;
+      }
+      if (this.openTests.indexOf(test.$key) > -1) {
+        test.open = true;
+      } else {
+        test.open = false;
       }
       return test;
     }));
@@ -161,6 +171,20 @@ export class TestsStore {
         this.selectAll = true;
         this.filterAndSelectTests();
       }
+    });
+  }
+
+  subscribeToOpen() {
+    this.openTestSubject.subscribe(test => {
+      this.openTests.push(test);
+      this.filterAndSelectTests();
+    });
+    this.closeTestSubject.subscribe(test => {
+      var index = this.openTests.indexOf(test);
+      if (index > -1) {
+        this.openTests.splice(index,1);
+      }
+      this.filterAndSelectTests();
     });
   }
 
