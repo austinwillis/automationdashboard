@@ -141,6 +141,15 @@ export class TestsStore {
     this.filterAndSelectTests();
   }
 
+  clearFilters() {
+    this.suiteFilter = '';
+    this.personFilter = '';
+    this.testFilter = '';
+    this.resultFilter = '';
+    this.statusFilter = '';
+    this.filterAndSelectTests();
+  }
+
   assignToMe(test) {
     this.af.database.object(`/tests/${test}/teamMember`).set(this.auth.google.displayName);
     var resultKey = this.getKeyOfNewestResult(test);
