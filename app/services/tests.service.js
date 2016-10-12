@@ -213,12 +213,23 @@ export class TestsStore {
 
   createTestRunXML() {
     var classes = "";
-    this.selectedTests.forEach(testName => {
-      var index = this.tests.map(t => { return t.$key }).indexOf(testName);
-      var className = this.tests[index].package + '.' + testName.split('_')[0];
-      var methodName = testName.match(/_\w+/)[0].replace('_','');
-      classes += `<class name="${className}">\n<methods>\n<include name="${methodName}" />\n<include name="createTestData" />\n</methods>\n</class>\n`;
-    });
+	var dict = {};
+	this.selectedTests.forEach(testName => {
+		var index = this.tests.map(t => { return t.$key }).indexOf(testName);
+		var className = this.tests[index].package + '.' + testName.split('_')[0];
+		if (dict[className] === undefined) {
+			dict[className] = [];
+		}
+		var methodName = testName.match(/_\w+/)[0].replace('_','');
+		dict[className].push(methodName);
+	});
+	for (var key in dict) {
+		classes += `<class name="${key}">\n<methods>\n`;
+		dict[key].forEach(methodName => {
+			classes+= `<include name="${methodName}" />\n`
+		});
+		classes+= `<include name="createTestData" />\n</methods>\n</class>\n`;
+	}
     return `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="Custom" verbose="2" configfailurepolicy="continue">\n<test name="DashboardGenerateTest">\n<classes>\n${classes}</classes>\n</test>\n</suite>`
   }
 
