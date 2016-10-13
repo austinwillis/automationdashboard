@@ -233,6 +233,11 @@ export class TestsStore {
     return `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="Custom" verbose="2" configfailurepolicy="continue">\n<test name="DashboardGenerateTest">\n<classes>\n${classes}</classes>\n</test>\n</suite>`
   }
 
+  deleteTest(testKey) {
+    this.af.database.object(`/tests/${testKey}`).remove();
+    this.af.database.object(`/results/${testKey}`).remove();
+  }
+
   massChangeResult(result) {
     var self = this;
     this.selectedTests.forEach(function(test) {

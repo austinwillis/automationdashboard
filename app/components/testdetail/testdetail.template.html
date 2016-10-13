@@ -42,6 +42,11 @@
           </select>
         </div>
       </div>
+      <div class="col-md-1 offset-md-8">
+        <button (click)="openConfirmDeleteTest()" type="button" class="btn btn-default" aria-label="Left Align">
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+        </button>
+      </div>
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -50,3 +55,13 @@
     </div>
   </div>
 </div>
+
+<modal #DeleteModal>
+  <modal-header>
+      <p class="modal-title">Are you sure you want to delete {{ test.$key }}</p>
+  </modal-header>
+  <modal-footer>
+    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="cancel()">Cancel</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="confirmDeleteTest()">Confirm</button>
+  </modal-footer>
+</modal>
