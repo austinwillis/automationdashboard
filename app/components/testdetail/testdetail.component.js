@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { NgClass } from '@angular/common';
 
 import { ResultsComponent } from '../../components';
@@ -13,6 +13,8 @@ import template from './testdetail.template.html';
   directives: [NgClass, ResultsComponent]
 })
 export class TestDetailComponent {
+  @ViewChild('DeleteModal')
+  deleteModal: ModalComponent;
   latestResult = '';
   showInfo = false;
   isSelected = false;
@@ -84,5 +86,13 @@ export class TestDetailComponent {
 
   updateStatus(status) {
     this.testsStore.updateStatus(this.testname, status);
+  }
+
+  openConfirmDeleteTest() {
+    this.deleteModal.open();
+  }
+
+  confirmDeleteTest() {
+    this.testsStore.deleteTest(this.test.$key);
   }
 }

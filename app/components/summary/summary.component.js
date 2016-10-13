@@ -11,6 +11,11 @@ import template from './summary.template.html';
 })
 export class SummaryComponent {
 
+
+  pieChartLabels = ['Pass', 'Fail', 'Flake', 'Skip', 'Bug'];
+  pieChartData = [0, 0, 0, 0, 0];
+  pieChartType = 'pie';
+
   isLoading = true;
   pass = 0;
   flake = 0;
@@ -50,11 +55,13 @@ export class SummaryComponent {
   }
 
   createStats() {
+    let clone = JSON.parse(JSON.stringify(this.pieChartData));
     this.totalTests = this.testsStore.results.length;
-    this.pass = this.createStatsByStatus('PASSED');
-    this.fail = this.createStatsByStatus('FAILED');
-    this.flake = this.createStatsByStatus('FLAKE');
-    this.skip = this.createStatsByStatus('SKIPPED');
-    this.bug = this.createStatsByStatus('BUG');
+    clone[0] = this.pass = this.createStatsByStatus('PASSED');
+    clone[1] = this.fail = this.createStatsByStatus('FAILED');
+    clone[2] = this.flake = this.createStatsByStatus('FLAKE');
+    clone[3] = this.skip = this.createStatsByStatus('SKIPPED');
+    clone[4] = this.bug = this.createStatsByStatus('BUG');
+    this.pieChartData = clone;
   }
 }
