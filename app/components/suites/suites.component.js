@@ -22,7 +22,7 @@ export class SuitesComponent {
   }
 
   addNewSuite(index) {
-    this.suitesService.addNewSuite(this.suites.length);
+    this.suitesService.addNewSuite(this.suites.length + 1);
   }
 
   removeSuite(index, name) {
