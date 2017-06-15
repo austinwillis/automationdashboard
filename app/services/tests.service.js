@@ -141,6 +141,15 @@ export class TestsStore {
     this.filterAndSelectTests();
   }
 
+  clearFilters() {
+    this.suiteFilter = '';
+    this.personFilter = '';
+    this.testFilter = '';
+    this.resultFilter = '';
+    this.statusFilter = '';
+    this.filterAndSelectTests();
+  }
+
   assignToMe(test) {
     this.af.database.object(`/tests/${test}/teamMember`).set(this.auth.google.displayName);
     var resultKey = this.getKeyOfNewestResult(test);
@@ -200,6 +209,33 @@ export class TestsStore {
     this.selectedTests = [];
     this.selectAll = false;
     this.filterAndSelectTests();
+  }
+
+  createTestRunXML() {
+    var classes = "";
+	var dict = {};
+	this.selectedTests.forEach(testName => {
+		var index = this.tests.map(t => { return t.$key }).indexOf(testName);
+		var className = this.tests[index].package + '.' + testName.split('_')[0];
+		if (dict[className] === undefined) {
+			dict[className] = [];
+		}
+		var methodName = testName.match(/_\w+/)[0].replace('_','');
+		dict[className].push(methodName);
+	});
+	for (var key in dict) {
+		classes += `<class name="${key}">\n<methods>\n`;
+		dict[key].forEach(methodName => {
+			classes+= `<include name="${methodName}" />\n`
+		});
+		classes+= `<include name="createTestData" />\n</methods>\n</class>\n`;
+	}
+    return `<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="Custom" verbose="2" configfailurepolicy="continue">\n<test name="DashboardGenerateTest">\n<classes>\n${classes}</classes>\n</test>\n</suite>`
+  }
+
+  deleteTest(testKey) {
+    this.af.database.object(`/tests/${testKey}`).remove();
+    this.af.database.object(`/results/${testKey}`).remove();
   }
 
   massChangeResult(result) {

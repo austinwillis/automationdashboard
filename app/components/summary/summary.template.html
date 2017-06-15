@@ -1,6 +1,12 @@
 <div *ngIf="this.pass === 0" class="row">
   <div class="col-md-2 offset-md-5 loader"></div>
 </div>
+<div *ngIf="this.pass !== 0" style="display: block">
+  <canvas baseChart
+      [data]="pieChartData"
+      [labels]="pieChartLabels"
+      [chartType]="pieChartType"></canvas>
+</div>
 <div *ngIf="this.pass !== 0" class="row">
   <div class="container offset-md-2 col-md-9">
     <div class="card card-inverse card-primary text-xs-center">

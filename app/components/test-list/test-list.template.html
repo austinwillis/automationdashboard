@@ -69,7 +69,9 @@
 </div>
   <div *ngIf="!testsStore.isLoading" class="row">
     <div class="col-md-2">Showing {{ this.visibleTests.length }} tests of {{ this.filteredTests.length }}</div>
-    <div class="offset-md-8 col-md-2">{{ this.testsStore.selectedTests.length }} tests Selected</div>
+    <div class="offset-md-6 col-md-2">{{ this.testsStore.selectedTests.length }} tests Selected</div>
+    <div class="col-md-1"><a href="#" (click)="this.testsStore.clearFilters()">Clear Filters</a></div>
+    <div class="col-md-1"><a href="#" (click)="this.createTestRunXML()">Create Test XML</a></div>
   </div>
 </div>
 <div *ngIf="testsStore.isLoading" class="row">
@@ -108,5 +110,17 @@
   <modal-footer>
       <button type="button" class="btn btn-default" data-dismiss="modal" (click)="this.cancel()">Cancel</button>
       <button type="button" class="btn btn-primary" (click)="this.confirmAssignToMe()">Confirm</button>
+  </modal-footer>
+</modal>
+
+<modal #XMLModal>
+  <modal-header>
+      <h4 class="modal-title">XML for selected tests.</h4>
+  </modal-header>
+  <modal-body>
+      <textarea rows="30" cols="68" value="{{ this.xmlOutput }}"></textarea>
+  </modal-body>
+  <modal-footer>
+      <button type="button" class="btn btn-default" data-dismiss="modal" (click)="this.cancel()">OK</button>
   </modal-footer>
 </modal>

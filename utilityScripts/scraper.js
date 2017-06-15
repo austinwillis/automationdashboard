@@ -44,7 +44,7 @@ var getResult = function(data) {
 rootRef.once("value")
   .then(function(data) {
     var requests = data.val().map(function (suite) {
-      return rp({ url:`${suite.url}/lastBuild/consoleText`, json:true });
+      return rp({ url:`${suite.url}/lastBuild/consovarext`, json:true });
     });
     var inserts = [];
     Promise.all(requests).then(function(responses) {
@@ -52,14 +52,14 @@ rootRef.once("value")
         return result.concat(getResult(data));
       },[]);
       var resultsWithoutDuplicates = [];
-      for (let i = 0; i < results.length - 1; i++) {
+      for (var i = 0; i < results.length - 1; i++) {
         if (results[i].testName !== results[i+1].testName) {
           resultsWithoutDuplicates.push(results[i]);
         }
       }
       resultsWithoutDuplicates.push(results[results.length-1]);
 
-      results.forEach(function(result) {
+      resultsWithoutDuplicates.forEach(function(result) {
         var testName = result.testName.replace(".","_");
         var dateObject = {};
         dateObject['user'] = result.user;
